@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celeste: Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h4>Celeste</h4>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+        </ul>
+    </header>
+    <section>
+        <img class="parallaxImg" src="./assets/img/bg.png" id="bg">
+        <img class="parallaxImg" src="./assets/img/FarMountains.png" id="farAwayMountains">
+        <img class="parallaxImg" src="./assets/img/MidRangeMountains.png" id="MidRangeMountains">
+        <img class="parallaxImg" src="./assets/img/CloseMountains.png" id="CloseMountains">
+        <img class="parallaxLogo" src="./assets/img/CelesteLogo.webp" id="logo" height="100px">
+    </section>
+    <div>
+        <h1 class="title">Próxima sessão inicia aqui!</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem dolorum aspernatur explicabo, esse quo, dolore ullam quod porro enim, aliquid qui totam eum aliquam necessitatibus vitae. Quia deserunt vel temporibus.</p>
+    </div>
+</body>
+</html>
+<script>
+    // Parallax
+    window.addEventListener('scroll', function(){
+        var value = window.scrollY;
+
+        bg.style.top = value * 0.4 + 'px';
+        farAwayMountains.style.top = value * 0.05 + 'px';
+        MidRangeMountains.style.top = value * 0.25 + 'px';
+        CloseMountains.style.top = value * 0.05 + 'px';
+        logo.style.top = value * 0.6 + 'px';
+    })
+</script>
