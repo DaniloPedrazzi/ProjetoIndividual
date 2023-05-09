@@ -70,7 +70,6 @@ section:before{
     pointer-events: none;
 }
 .parallaxLogo{
-    height: 375px;
     margin-bottom: 50px;
     position: relative;
     z-index: 1;
