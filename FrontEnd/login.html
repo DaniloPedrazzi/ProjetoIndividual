@@ -73,11 +73,11 @@
                     console.log(JSON.stringify(json));
 
                     sessionStorage.USERNAME_USUARIO = json.username;
-                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
 
                     setTimeout(function () {
-                        window.location = "./dashboard.html";
-                    }, 1000); // apenas para exibir o loading
+                        window.location = "./cadastrospeedrun.html";
+                    }, 2000); // apenas para exibir o loading
 
                 });
 

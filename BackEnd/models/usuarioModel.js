@@ -34,5 +34,5 @@ function cadastrar(username, email, senha) {
 module.exports = {
     entrar,
     cadastrar,
-    listar,
+    listar
 };
