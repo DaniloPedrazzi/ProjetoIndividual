@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background: #181A57;
+}
+
+/* Header */
+
+#header{
+    width: 96%;
+    padding: 1% 2%;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+}
+#header .logo{
+    font-weight: 700;
+    color: #fff;
+    font-size: 2em;
+    letter-spacing: 1px;
+}
+#header ul{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#header li{
+    list-style: none;
+}
+#header a{
+    margin: 0px 5px;
+    text-decoration: none;
+    color: #fff;
+}
+
+@media screen and (max-width: 550px){
+    /* Fazer botão hamburguer */
+    #header ul{
+        flex-direction: column;
+    }
+}

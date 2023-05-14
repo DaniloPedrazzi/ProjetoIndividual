@@ -6,21 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Individual project for SPTECH Celeste Themed">
     <title>Celeste: Home</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/index.css">
+
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <h4>Celeste</h4>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="leaderboard.html">LeaderBoard</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="cadastro.html">Cadastro</a></li>
-        </ul>
-    </header>
+    <div id="header"></div>
     <section>
         <img class="parallaxImg" alt="Parallax Background" src="./assets/img/bg.webp" id="bg">
         <img class="parallaxImg" alt="Parallax Last Layer" src="./assets/img/FarMountains.webp" id="farAwayMountains">
@@ -34,11 +25,12 @@
     </div>
 </body>
 </html>
+
 <script>
     // Parallax
     window.addEventListener('scroll', function(){
         var value = window.scrollY;
-
+        
         bg.style.top = value * 0.4 + 'px';
         farAwayMountains.style.top = value * 0.05 + 'px';
         MidRangeMountains.style.top = value * 0.25 + 'px';
@@ -46,3 +38,7 @@
         logo.style.top = value * 0.6 + 'px';
     })
 </script>
+
+
+<!-- Header loader -->
+<script src="header.js"></script>

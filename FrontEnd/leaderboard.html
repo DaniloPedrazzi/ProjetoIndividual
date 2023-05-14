@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Individual project for SPTECH Celeste Themed">
+    <title>Celeste: Home</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/leaderboard.css">
+</head>
+<body>
+    <div id="header"></div>
+    <h1 class="title">Leaderboard</h1>
+    <div class="categories">
+        <button onclick="changeCategory()" class="category selected">Any%</button>
+        <button onclick="changeCategory()" class="category">All Red Berries</button>
+        <button onclick="changeCategory()" class="category">True Ending</button>
+        <button onclick="changeCategory()" class="category">All Hearts</button>
+        <button onclick="changeCategory()" class="category">100%</button>
+        <button onclick="changeCategory()" class="category">Farewell</button>
+    </div>
+    <div class="containerLeaderboard">
+        <div class="titleEntry">
+            <div class="left">
+                <p class="position">#</p>
+                <p class="flag">Flag</p>
+                <p class="userName">UserName</p>
+            </div>
+            <div class="right">
+                <p class="time">Time</p>
+                <p class="date">Date</p>
+                <p class="platform">Platform</p>
+            </div>
+        </div>
+        <div class="entry">
+            <div class="left">
+                <p class="position">1</p>
+                <img src="./assets/img/br.png" alt="" class="flag">
+                <p class="userName">xCUELHO</p>
+            </div>
+            <div class="right">
+                <p class="time">25m45s368ms</p>
+                <p class="date">há 21 dias</p>
+                <p class="platform">PC</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function changeCategory() {
+        // FrontEnd
+        var categories = document.getElementsByClassName("category");
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].classList.remove("selected");
+        }
+        event.target.classList.add("selected");
+
+        // BackEnd
+        var category = event.target.innerHTML;
+    }
+</script>
+
+<!-- Header loader -->
+<script src="header.js"></script>
