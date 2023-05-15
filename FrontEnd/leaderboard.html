@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/leaderboard.css">
 </head>
-<body>
+<body onload="carregarLeaderboard()">
     <div id="header"></div>
     <h1 class="title">Leaderboard</h1>
     <div class="categories">
@@ -20,36 +20,13 @@
         <button onclick="changeCategory()" class="category">100%</button>
         <button onclick="changeCategory()" class="category">Farewell</button>
     </div>
-    <div class="containerLeaderboard">
-        <div class="titleEntry">
-            <div class="left">
-                <p class="position">#</p>
-                <p class="flag">Flag</p>
-                <p class="userName">UserName</p>
-            </div>
-            <div class="right">
-                <p class="time">Time</p>
-                <p class="date">Date</p>
-                <p class="platform">Platform</p>
-            </div>
-        </div>
-        <div class="entry">
-            <div class="left">
-                <p class="position">1</p>
-                <img src="./assets/img/br.png" alt="" class="flag">
-                <p class="userName">xCUELHO</p>
-            </div>
-            <div class="right">
-                <p class="time">25m45s368ms</p>
-                <p class="date">há 21 dias</p>
-                <p class="platform">PC</p>
-            </div>
-        </div>
+    <div id="containerLeaderboard">
     </div>
 </body>
 </html>
 
 <script>
+    var speedruns = [];
     function changeCategory() {
         // FrontEnd
         var categories = document.getElementsByClassName("category");
@@ -60,6 +37,49 @@
 
         // BackEnd
         var category = event.target.innerHTML;
+    }
+
+    function carregarLeaderboard() {
+        fetch("/speedruns/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    speedruns = json;
+                    plotarEntries();
+                });
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function plotarEntries(){
+        for (let i = 0; i < speedruns.length; i++) {
+            containerLeaderboard.innerHTML += `
+            <div class="entry">
+                <div class="left">
+                    <p class="position">${i + 1}</p>
+                    <img src="./assets/img/${speedruns[i].pais}.png" alt="" class="flag">
+                    <p class="userName">${speedruns[i].username}</p>
+                </div>
+                <div class="right">
+                    <p class="time">${speedruns[i].tempo}</p>
+                    <p class="date">${speedruns[i].dataSpeedrun}</p>
+                    <p class="platform">${speedruns[i].plataforma}</p>
+                </div>
+            </div>`
+        }
     }
 </script>
 

@@ -17,6 +17,7 @@
         <h1 class="title">Próxima sessão inicia aqui!</h1>
         <input placeholder="UserName" id="inputUserName">
         <input placeholder="Email" id="inputEmail">
+        <input placeholder="País" id="inputPais">
         <input placeholder="Senha" id="inputSenha">
         <input placeholder="Confirmar Senha" id="inputConfirmarSenha">
         <button onclick="cadastrar()">Cadastrar</button>
@@ -29,11 +30,12 @@
 
         var userNameVar = inputUserName.value;
         var emailVar = inputEmail.value;
+        var paisVar = inputPais.value;
         var senhaVar = inputSenha.value;
         var confirmacaoSenhaVar = inputConfirmarSenha.value;
 
         // Validações
-        if (userNameVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+        if (userNameVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || paisVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
@@ -53,6 +55,7 @@
             body: JSON.stringify({
                 userNameServer: userNameVar,
                 emailServer: emailVar,
+                paisServer: paisVar,
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
@@ -60,16 +63,9 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                cardErro.style.display = "block";
-
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
                 setTimeout(() => {
                     window.location = "login.html";
                 }, "2000")
-
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
