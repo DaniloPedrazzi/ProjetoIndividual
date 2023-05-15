@@ -13,15 +13,15 @@
     <div id="header"></div>
     <h1 class="title">Leaderboard</h1>
     <div class="categories">
-        <button onclick="changeCategory()" class="category selected">Any%</button>
+        <button onclick="changeCategory()" class="category selected">Todas</button>
+        <button onclick="changeCategory()" class="category">Any%</button>
         <button onclick="changeCategory()" class="category">All Red Berries</button>
         <button onclick="changeCategory()" class="category">True Ending</button>
         <button onclick="changeCategory()" class="category">All Hearts</button>
         <button onclick="changeCategory()" class="category">100%</button>
         <button onclick="changeCategory()" class="category">Farewell</button>
     </div>
-    <div id="containerLeaderboard">
-    </div>
+    <div id="containerLeaderboard"></div>
 </body>
 </html>
 
@@ -67,7 +67,7 @@
     function plotarEntries(){
         for (let i = 0; i < speedruns.length; i++) {
             containerLeaderboard.innerHTML += `
-            <div class="entry">
+            <div class="entry" onclick="window.open('${speedruns[i].linkConfirmacao}', '_blank')">
                 <div class="left">
                     <p class="position">${i + 1}</p>
                     <img src="./assets/img/${speedruns[i].pais}.png" alt="" class="flag">
