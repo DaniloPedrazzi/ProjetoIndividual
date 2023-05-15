@@ -1,7 +1,6 @@
 var database = require("../database/config")
 
 function listar() {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
         SELECT usuario.username, usuario.pais, speedrun.tempo, speedrun.categoria, speedrun.plataforma, speedrun.linkConfirmacao, speedrun.dataSpeedrun FROM usuario JOIN speedrun ON idUsuario = fkUsuario;
     `;
@@ -9,9 +8,15 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function cadastrar(tempo, categoria, plataforma, linkConfirmacao, idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+function listarCategoria(categoria) {
+    var instrucao = `
+        SELECT usuario.username, usuario.pais, speedrun.tempo, speedrun.categoria, speedrun.plataforma, speedrun.linkConfirmacao, speedrun.dataSpeedrun FROM usuario JOIN speedrun ON idUsuario = fkUsuario WHERE speedrun.categoria = '${categoria}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
+function cadastrar(tempo, categoria, plataforma, linkConfirmacao, idUsuario) {
     var instrucao = `
         INSERT INTO speedrun (tempo, categoria, plataforma, linkConfirmacao, fkUsuario) VALUES ('${tempo}', '${categoria}', '${plataforma}', '${linkConfirmacao}', ${idUsuario});
     `;
@@ -22,4 +27,5 @@ function cadastrar(tempo, categoria, plataforma, linkConfirmacao, idUsuario) {
 module.exports = {
     cadastrar,
     listar,
+    listarCategoria
 };

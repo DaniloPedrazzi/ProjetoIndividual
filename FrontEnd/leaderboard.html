@@ -13,7 +13,7 @@
     <div id="header"></div>
     <h1 class="title">Leaderboard</h1>
     <div class="categories">
-        <button onclick="changeCategory()" class="category selected">Todas</button>
+        <button onclick="carregarLeaderboard()" class="category selected">Todas</button>
         <button onclick="changeCategory()" class="category">Any%</button>
         <button onclick="changeCategory()" class="category">All Red Berries</button>
         <button onclick="changeCategory()" class="category">True Ending</button>
@@ -37,9 +37,34 @@
 
         // BackEnd
         var category = event.target.innerHTML;
+        fetch("/speedruns/listarCategoria", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                categoriaServer: category
+            })
+        }).then(function (resposta) {
+            if (resposta.status == 200) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    speedruns = json;
+                    containerLeaderboard.innerHTML = "";
+                    plotarEntries();
+                });
+            } else {
+                containerLeaderboard.innerHTML = `<div class="entry"><p class="userName">Não há speedruns cadastradas na categoria ${category}</p></div>`;
+                console.log("Houve um erro ao tentar trocar a categoria!");
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
     }
 
     function carregarLeaderboard() {
+        containerLeaderboard.innerHTML = "";
         fetch("/speedruns/listar", {
             method: "GET",
             headers: {
@@ -54,7 +79,7 @@
                     plotarEntries();
                 });
             } else {
-                console.log("Houve um erro ao tentar realizar o login!");
+                console.log("Houve um erro ao tentar buscar os dados das speedruns!");
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
@@ -76,6 +101,7 @@
                 <div class="right">
                     <p class="time">${speedruns[i].tempo}</p>
                     <p class="date">${speedruns[i].dataSpeedrun}</p>
+                    <p class="date">${speedruns[i].categoria}</p>
                     <p class="platform">${speedruns[i].plataforma}</p>
                 </div>
             </div>`
