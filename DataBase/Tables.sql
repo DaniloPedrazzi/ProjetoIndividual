@@ -21,5 +21,3 @@ CREATE TABLE speedrun (
   CONSTRAINT pkComposta PRIMARY KEY (idspeedrun, fkUsuario),
   CONSTRAINT fkUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
-
-SELECT usuario.username, usuario.pais, speedrun.tempo, speedrun.categoria, speedrun.plataforma, speedrun.linkConfirmacao, speedrun.dataSpeedrun FROM usuario JOIN speedrun ON idUsuario = fkUsuario;

@@ -13,7 +13,7 @@
     <div id="header"></div>
     <h1 class="title">Leaderboard</h1>
     <div class="categories">
-        <button onclick="carregarLeaderboard()" class="category selected">Todas</button>
+        <button onclick="changeCategory()" class="category selected">Todas</button>
         <button onclick="changeCategory()" class="category">Any%</button>
         <button onclick="changeCategory()" class="category">All Red Berries</button>
         <button onclick="changeCategory()" class="category">True Ending</button>
@@ -27,6 +27,7 @@
 
 <script>
     var speedruns = [];
+    
     function changeCategory() {
         // FrontEnd
         var categories = document.getElementsByClassName("category");
@@ -34,9 +35,17 @@
             categories[i].classList.remove("selected");
         }
         event.target.classList.add("selected");
-
-        // BackEnd
+        
         var category = event.target.innerHTML;
+        if(category == "Todas"){
+            carregarLeaderboard();
+            return;
+        }else{
+            carregarLeaderboardCategoria(category);
+        }
+    }
+
+    function carregarLeaderboardCategoria(category){
         fetch("/speedruns/listarCategoria", {
             method: "POST",
             headers: {
