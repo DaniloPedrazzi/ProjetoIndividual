@@ -1,0 +1,109 @@
+.container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#header{
+    position: fixed;
+}
+
+/* Esquerda */
+
+.bgImg{
+    height: 100vh;
+    width: 50%;
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(../assets/img/cadastroBg.png) no-repeat center;
+}
+
+.titleImg{
+    font-size: 3em;
+    color: var(--light);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Direita */
+
+.login{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    font-size: 1.7em;
+    color: var(--light);
+    margin-bottom: 15px;
+}
+
+.login p{
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #d0d0d0;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.login a{
+    text-decoration: none;
+    color: var(--main);
+    font-weight: 500;
+}
+
+input{
+    padding: 7px 7px;
+    width: 50%;
+    margin: 1%;
+    border: none;
+    border-left: 7px solid var(--main);
+    border-radius: 2px;
+    background-color: #333333;
+    color: var(--light);
+    transition: 0.2s;
+}
+
+input:focus{
+    outline: none;
+    border-left: 10px solid hsl(255, 84%, 80%);
+}
+
+input::placeholder{
+    color: #aeaeae;
+}
+
+select{
+    padding: 7px 7px;
+    width: 53%;
+    margin: 1%;
+    border: none;
+    border-left: 7px solid var(--main);
+    border-radius: 2px;
+    background-color: #333333;
+    color: #aeaeae;
+}
+
+select:focus{
+    outline: none;
+    border-left: 10px solid hsl(255, 84%, 80%);
+}
+
+button{
+    padding: 7px 7px;
+    width: 30%;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--main);
+    color: var(--light);
+    font-weight: 600;
+    cursor: pointer;
+}

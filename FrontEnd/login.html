@@ -6,18 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Individual project for SPTECH Celeste Themed">
     <title>Celeste: Home</title>
+    <link rel="shortcut icon" href="./assets/img/celesteLogoOnlyMountain.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
 
     <!-- API -->
     <script src="./js/funcoes.js"></script>
 </head>
 <body>
     <div id="header"></div>
-    <div>
-        <h1 class="title">Próxima sessão inicia aqui!</h1>
-        <input placeholder="UserName" id="inputUserName">
-        <input placeholder="Senha" id="inputSenha">
-        <button onclick="entrar()">Cadastrar</button>
+    <div class="container">
+        <div class="bgImg">
+            <h1 class="titleImg">Bem vindo <br> de volta!</h1>
+        </div>
+        <div class="login">
+            <h1 class="title">Login</h1>
+            <input placeholder="Username" id="inputUserName">
+            <input placeholder="Senha" id="inputSenha">
+            <p id="mensagem_erro"></p>
+            <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
+            <p>Ainda não tem uma conta? <a href="cadastro.html">Faça Cadastro</a></p>
+            <button onclick="entrar()">Entrar</button>
+        </div>
     </div>
 </body>
 </html>
@@ -30,13 +40,9 @@
         var senhaVar = inputSenha.value;
 
         if (usernameVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
+            mensagem_erro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
             return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", usernameVar);
@@ -52,8 +58,6 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
             if (resposta.ok) {
                 console.log(resposta);
 
@@ -65,30 +69,22 @@
                     sessionStorage.ID_USUARIO = json.idUsuario;
 
                     setTimeout(function () {
-                        window.location = "./cadastrospeedrun.html";
-                    }, 2000); // apenas para exibir o loading
+                        window.location = "./leaderboard.html";
+                    }, 2000);
 
                 });
-
             } else {
-
                 console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
                     finalizarAguardar(texto);
                 });
             }
-
         }).catch(function (erro) {
             console.log(erro);
         })
 
         return false;
-    }
-
-    function sumirMensagem() {
-        // cardErro.style.display = "none"
     }
 </script>
 

@@ -5,37 +5,103 @@
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
+
+:root{
+    --black: #1c1c1c;
+    --light: #eeeeee;
+    --main: hsl(255, 84%, 66%);
+    --main-bg: hsl(238, 57%, 22%);
+    --error: hsl(0, 82%, 64%);
+    --sucess: hsl(139, 82%, 61%);
+}
+
 body{
-    background: #181A57;
+    background-color: var(--black);
+}
+
+/* Erros e Loadings */
+
+#mensagem_erro{
+    display: none;
+    color: var(--error);
+}
+
+#div_aguardar{
+    margin: -30px;
+    display: none;
+    height: 150px;
 }
 
 /* Header */
 
 #header{
-    width: 96%;
-    padding: 1% 2%;
+    width: 100%;
     z-index: 20;
     display: flex;
     justify-content: space-between;
-}
-#header .logo{
-    font-weight: 700;
-    color: #fff;
-    font-size: 2em;
-    letter-spacing: 1px;
-}
-#header ul{
-    display: flex;
-    justify-content: flex-end;
     align-items: center;
 }
-#header li{
-    list-style: none;
+#header .logo{
+    margin: 5px 10px;
+    width: 75px;
+    display: flex;
+    align-items: center;
 }
-#header a{
+
+.headerCenter{
+    margin-left: 100px;
+    justify-self: center;
+}
+.headerLink{
     margin: 0px 5px;
     text-decoration: none;
     color: #fff;
+    transition: 0.2s;
+}
+
+.headerLink:hover{
+    text-decoration: underline;
+}
+
+.cadastroLink{
+    padding: 7px 10px;
+    width: 30%;
+    border: none;
+    margin-right: 5px;
+    border-radius: 7px;
+    border: 2px solid var(--main);
+    color: var(--light);
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.cadastroLink:hover{
+    background-color: var(--main);
+}
+
+.loginLink{
+    padding: 7px 21px;
+    width: 30%;
+    margin-right: 20px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--main);
+    color: var(--light);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.loginLink:hover{
+    background-color: hsl(255, 84%, 73%);
+}
+
+#headerSelected{
+    color: var(--main);
+    font-weight: 700;
 }
 
 @media screen and (max-width: 550px){
