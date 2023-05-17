@@ -26,12 +26,20 @@ var sqlServerConfig = {
 //     password: "sptech",
 // };
 // Casa
+// var mySqlConfig = {
+//     host: "localhost",
+//     database: "Celeste",
+//     user: "root",
+//     password: "1234",
+// };
+// CleverCloud
 var mySqlConfig = {
-    host: "localhost",
-    database: "Celeste",
-    user: "root",
-    password: "1234",
+    host: "buffpj28r0fvkofuuuxp-mysql.services.clever-cloud.com",
+    database: "buffpj28r0fvkofuuuxp",
+    user: "uc7h3pezma7pam8q",
+    password: "IaWauYVfTphzMum1LKds",
 };
+
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
