@@ -10,7 +10,7 @@
     --black: #1c1c1c;
     --light: #eeeeee;
     --main: hsl(255, 84%, 66%);
-    --main-bg: hsl(238, 57%, 22%);
+    --main-dark: hsl(255, 57%, 22%);
     --error: hsl(0, 82%, 64%);
     --sucess: hsl(139, 82%, 61%);
 }

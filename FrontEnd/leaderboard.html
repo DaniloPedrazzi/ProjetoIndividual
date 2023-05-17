@@ -13,17 +13,24 @@
 </head>
 <body onload="carregarLeaderboard(), carregarHeader('leaderboard')">
     <div id="header"></div>
-    <h1 class="title">Leaderboard</h1>
-    <div class="categories">
-        <button onclick="changeCategory()" class="category selected">Todas</button>
-        <button onclick="changeCategory()" class="category">Any%</button>
-        <button onclick="changeCategory()" class="category">All Red Berries</button>
-        <button onclick="changeCategory()" class="category">True Ending</button>
-        <button onclick="changeCategory()" class="category">All Hearts</button>
-        <button onclick="changeCategory()" class="category">100%</button>
-        <button onclick="changeCategory()" class="category">Farewell</button>
+    <div class="container">
+        <h1 class="title">Leaderboard</h1>
+        <div class="menu">
+            <div class="categories">
+                <button onclick="changeCategory()" class="category selected">Todas</button>
+                <button onclick="changeCategory()" class="category">Any%</button>
+                <button onclick="changeCategory()" class="category">All Red Berries</button>
+                <button onclick="changeCategory()" class="category">True Ending</button>
+                <button onclick="changeCategory()" class="category">All Hearts</button>
+                <button onclick="changeCategory()" class="category">100%</button>
+                <button onclick="changeCategory()" class="category">Farewell</button>
+            </div>
+            <div class="addSpeedrun">
+                <a href="cadastroSpeedrun.html">+</a>
+            </div>
+        </div>
+        <div id="containerLeaderboard"></div>
     </div>
-    <div id="containerLeaderboard"></div>
 </body>
 </html>
 
