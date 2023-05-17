@@ -26,8 +26,6 @@
 </html>
 <script>
     function cadastrar() {
-        aguardar();
-        
         var idUsuarioVar = sessionStorage.ID_USUARIO;
         var tempoVar = inputTempo.value;
         var categoriaVar = inputCategoria.value;
@@ -36,20 +34,9 @@
 
         // Validações
         if(idUsuarioVar == ""){
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para usuario não logado)";
-    
-            finalizarAguardar();
             return false;
         }else if (tempoVar == "" || categoriaVar == "" || plataformaVar == "" || linkConfirmacaoVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
             return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
         }
 
         // Enviando os valores para a API
@@ -70,29 +57,19 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                cardErro.style.display = "block";
-
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
                 setTimeout(() => {
                     window.location = "leaderboard.html";
                 }, "2000")
 
                 limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
         return false;
-    }
-
-    function sumirMensagem() {
-        // cardErro.style.display = "none"
     }
 </script>
 

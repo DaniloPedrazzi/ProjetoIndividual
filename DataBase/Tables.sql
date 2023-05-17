@@ -1,4 +1,3 @@
-DROP DATABASE Celeste;
 CREATE DATABASE Celeste;
 USE Celeste;
 
