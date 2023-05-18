@@ -82,13 +82,13 @@
 .left{
     width: 25%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 .right{
     width: 55%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -115,7 +115,7 @@
     color: #fff;
     font-weight: 600;
 }
-.entry .userName, .platform, .date{
+.entry .userName, .platform, .date, .categoryEntry{
     color: #fff;
     font-weight: 400;
 }
@@ -123,4 +123,21 @@
 .entry .flag{
     height: 25px;
     border-radius: 3px;
+    margin-left: 42px;
+}
+
+.entry .userName{
+    margin-left: 42px;
+}
+
+.entry .categoryEntry{
+    margin-right: 42px;
+}
+
+.entry .date{
+    margin-right: 70px;
+}
+
+.entry .time{
+    margin-right: 77px;
 }
