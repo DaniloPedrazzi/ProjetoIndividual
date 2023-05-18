@@ -38,13 +38,30 @@ function listarCategoria(req, res) {
 
 function cadastrar(req, res) {
     var idUsuario = req.body.idUsuarioServer;
-    var tempo = req.body.tempoServer;
+    var h = req.body.hServer;
+    var m = req.body.mServer;
+    var s = req.body.sServer;
+    var ms = req.body.msServer;
     var categoria = req.body.categoriaServer;
     var plataforma = req.body.plataformaServer;
     var linkConfirmacao = req.body.linkConfirmacaoServer;
+    var tempo;
+
+    // Converta os valores para o formato de tempo
+    if(h >= 1){
+        tempo = h + "h " + m + "m " + s + "s " + ms + "ms";
+    }else if(m >= 1){
+        tempo = m + "m " + s + "s " + ms + "ms";
+    }else if(s >= 1){
+        tempo = s + "s " + ms + "ms";
+    }else if(ms >= 1){
+        tempo = ms + "ms";
+    }else{
+        res.status(400).send("Você precisa colocar um tempo para sua speedrun!");
+    }
 
     // Faça as validações dos valores
-    if (tempo == undefined) {
+    if (h == undefined || m == undefined || s == undefined || ms == undefined) {
         res.status(400).send("Você precisa colocar um tempo para sua speedrun!");
     } else if (categoria == undefined) {
         res.status(400).send("Você precisa colocar uma categoria para sua speedrun!");

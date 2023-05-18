@@ -3,9 +3,7 @@ function validarSessao() {
     var username = sessionStorage.USERNAME_USUARIO;
     var idUsuario = sessionStorage.ID_USUARIO;
 
-    if (username != null && idUsuario != null) {
-        window.alert(`Seja bem-vindo, ${username}!`);
-    } else {
+    if (username == null && idUsuario == null) {
         window.location = "login.html";
     }
 }
@@ -19,6 +17,11 @@ function limparSessao() {
 function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
+}
+
+function finalizarAguardar() {
+    var divAguardar = document.getElementById("div_aguardar");
+    divAguardar.style.display = "none";
 }
 
 

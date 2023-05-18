@@ -14,7 +14,6 @@
     <script src="./js/funcoes.js"></script>
 </head>
 <body>
-    <div id="header"></div>
     <div class="container">
         <div class="bgImg">
             <h1 class="titleImg">Bem vindo <br> de volta!</h1>
@@ -41,7 +40,7 @@
 
         if (usernameVar == "" || senhaVar == "") {
             mensagem_erro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            mensagem_erro.innerHTML = "Você precisa preencher todos os campos!";
             return false;
         }
 
@@ -76,6 +75,8 @@
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
                 resposta.text().then(texto => {
+                    mensagem_erro.style.display = "block"
+                    mensagem_erro.innerHTML = texto;
                     console.error(texto);
                     finalizarAguardar(texto);
                 });
@@ -87,6 +88,3 @@
         return false;
     }
 </script>
-
-<!-- Header loader -->
-<script src="header.js"></script>

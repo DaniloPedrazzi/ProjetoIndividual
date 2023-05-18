@@ -1,0 +1,80 @@
+#header{
+    position: fixed;
+}
+
+/* Direita */
+
+.login{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    font-size: 1.7em;
+    color: var(--light);
+    margin-bottom: 15px;
+}
+
+input{
+    padding: 7px 7px;
+    width: 340px;
+    margin: 7px;
+    border: none;
+    border-left: 7px solid var(--main);
+    border-radius: 2px;
+    background-color: var(--main-dark);
+    color: var(--light);
+    transition: 0.2s;
+}
+
+input:focus{
+    outline: none;
+    border-left: 10px solid hsl(255, 84%, 80%);
+}
+
+input::placeholder{
+    color: #aeaeae;
+}
+
+.inputTempo{
+    display: flex;
+    justify-content: center;
+}
+
+.inputTempo input{
+    width: 70px;
+    margin: 7px 0px;
+}
+
+select{
+    padding: 7px 7px;
+    width: 360px;
+    margin: 7px;
+    border: none;
+    border-left: 7px solid var(--main);
+    border-radius: 2px;
+    background-color: var(--main-dark);
+    color: #aeaeae;
+    transition: 0.2s;
+}
+
+select:focus{
+    outline: none;
+    border-left: 10px solid hsl(255, 84%, 80%);
+}
+
+button{
+    padding: 7px 7px;
+    width: 170px;
+    margin-top: 7px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--main);
+    color: var(--light);
+    font-weight: 600;
+    cursor: pointer;
+}
