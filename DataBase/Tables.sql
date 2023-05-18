@@ -11,7 +11,10 @@ CREATE TABLE usuario (
 
 CREATE TABLE speedrun (
   idSpeedrun INT AUTO_INCREMENT,
-  tempo VARCHAR(45) NOT NULL,
+  tempoHora INT NOT NULL,
+  tempoMinuto INT NOT NULL,
+  tempoSegundo INT NOT NULL,
+  tempoMilesimo INT NOT NULL,
   categoria VARCHAR(45) NOT NULL,
   plataforma VARCHAR(45) NOT NULL,
   linkConfirmacao VARCHAR(255),

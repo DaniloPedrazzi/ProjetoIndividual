@@ -45,20 +45,6 @@ function cadastrar(req, res) {
     var categoria = req.body.categoriaServer;
     var plataforma = req.body.plataformaServer;
     var linkConfirmacao = req.body.linkConfirmacaoServer;
-    var tempo;
-
-    // Converta os valores para o formato de tempo
-    if(h >= 1){
-        tempo = h + "h " + m + "m " + s + "s " + ms + "ms";
-    }else if(m >= 1){
-        tempo = m + "m " + s + "s " + ms + "ms";
-    }else if(s >= 1){
-        tempo = s + "s " + ms + "ms";
-    }else if(ms >= 1){
-        tempo = ms + "ms";
-    }else{
-        res.status(400).send("Você precisa colocar um tempo para sua speedrun!");
-    }
 
     // Faça as validações dos valores
     if (h == undefined || m == undefined || s == undefined || ms == undefined) {
@@ -72,7 +58,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        speedrunModel.cadastrar(tempo, categoria, plataforma, linkConfirmacao, idUsuario)
+        speedrunModel.cadastrar(h, m, s, ms, categoria, plataforma, linkConfirmacao, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);

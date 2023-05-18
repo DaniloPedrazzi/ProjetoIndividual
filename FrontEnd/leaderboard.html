@@ -107,6 +107,7 @@
     }
 
     function plotarEntries(){
+        organizarSpeedruns();
         for (let i = 0; i < speedruns.length; i++) {
             containerLeaderboard.innerHTML += `
             <div class="entry" onclick="window.open('${speedruns[i].linkConfirmacao}', '_blank')">
@@ -116,12 +117,29 @@
                     <p class="userName">${speedruns[i].username}</p>
                 </div>
                 <div class="right">
-                    <p class="time">${speedruns[i].tempo}</p>
+                    <p class="time">${speedruns[i].tempoHora}h ${speedruns[i].tempoMinuto}m ${speedruns[i].tempoSegundo}s ${speedruns[i].tempoMilesimo}ms</p>
                     <p class="date">${calcularData(speedruns[i].dataSpeedrun)}</p>
                     <p class="date">${speedruns[i].categoria}</p>
                     <p class="platform">${speedruns[i].plataforma}</p>
                 </div>
             </div>`
+        }
+    }
+
+    function organizarSpeedruns(){
+        // Transforma o tempo total em milissegundos
+        for (let i = 0; i < speedruns.length; i++) {
+            speedruns[i].tempo = speedruns[i].tempoHora * 3600000 + speedruns[i].tempoMinuto * 60000 + speedruns[i].tempoSegundo * 1000 + speedruns[i].tempoMilesimo;
+        }
+        // Ordena as speedruns por tempo (é um sort() feito na mão)
+        for (let i = 0; i < speedruns.length; i++) {
+            for (let j = i + 1; j < speedruns.length; j++) {
+                if (speedruns[i].tempo > speedruns[j].tempo) {
+                    var temp = speedruns[i];
+                    speedruns[i] = speedruns[j];
+                    speedruns[j] = temp;
+                }
+            }
         }
     }
 
