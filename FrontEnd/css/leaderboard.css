@@ -5,16 +5,9 @@
     margin: auto;
 }
 
-/* Titulo */
-.title{
-    font-size: 3em;
-    color: #fff;
-    text-align: center;
-    margin: 21px 0px;
-}
-
 /* Menu */
 .menu{
+    margin-top: 21px;
     display: flex;
 }
 
@@ -27,27 +20,19 @@
 }
 
 .category{
-    color: #fff;
+    color: var(--light);
     background-color: var(--main-dark);
-    border: solid 2px #ececec;
-    border-radius: 7px;
+    border: none;
+    border-left: solid 7px var(--main);
+    border-radius: 4px;
     font-weight: 600;
     padding: 1% 2%;
     cursor: pointer;
     transition: 0.2s ease;
 }
-.category:hover{
+.category:hover, .selected, .selected:hover{
     background-color: hsl(255, 57%, 35%);
-    border: solid 2px #ffffff;
-}
-
-.selected{
-    background-color: #ececec;
-    color: var(--main-dark);
-}
-.selected:hover{
-    background-color: #ececec;
-    color: var(--main-dark);
+    border-left: solid 7px var(--light);
 }
 
 .addSpeedrun{
@@ -59,14 +44,19 @@
 
 .addSpeedrun a{
     text-decoration: none;
-    color: var(--main-dark);
-    background-color: #ececec;
-    border: solid 2px #ececec;
-    border-radius: 7px;
-    font-weight: 500;
+    color: var(--light);
+    background-color: var(--main-dark);
+    border: none;
+    border: solid 3px var(--main);
+    border-radius: 4px;
+    font-weight: 600;
     padding: 4% 8%;
     cursor: pointer;
     transition: 0.2s ease;
+}
+.addSpeedrun a:hover{
+    background-color: hsl(255, 57%, 35%);
+    border: solid 3px var(--light);
 }
 
 /* Entry */
@@ -74,7 +64,7 @@
 #containerLeaderboard{
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 7px;
     margin: auto;
     width: 100%;
     margin-top: 21px;
@@ -98,12 +88,12 @@
     background-color: var(--main-dark);
     border-left: 7px solid var(--main);
     border-radius: 7px;
-    padding: 20px 49px;
+    padding: 14px 49px;
     cursor: pointer;
     transition: 0.2s ease;
 }
 .entry:hover{
-    background-color: #2b30ae;
+    background-color: hsl(255, 57%, 35%);
 }
 
 .entry .position{
