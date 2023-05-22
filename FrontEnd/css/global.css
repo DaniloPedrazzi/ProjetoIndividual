@@ -19,6 +19,21 @@ body{
     background-color: var(--black);
 }
 
+/* ScrollBar */
+body::-webkit-scrollbar {
+    width: 7px;
+}
+  
+body::-webkit-scrollbar-track {
+    background: var(--main-dark);
+}
+  
+body::-webkit-scrollbar-thumb {
+    background-color: var(--main);
+    border-radius: 2px;
+    border: none;
+}
+
 /* Erros e Loadings */
 
 #mensagem_erro{

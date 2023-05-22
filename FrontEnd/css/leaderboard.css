@@ -141,3 +141,17 @@
 .entry .time{
     margin-right: 77px;
 }
+
+.entry .place1{
+    background: -webkit-linear-gradient(#e7e419, #fff8a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.entry .place2{
+    color: silver;
+}
+
+.entry .place3{
+    color: #cd7f32;
+}
