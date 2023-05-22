@@ -21,7 +21,10 @@
         <div class="login">
             <h1 class="title">Login</h1>
             <input placeholder="Username" id="inputUserName">
-            <input placeholder="Senha" id="inputSenha">
+            <div class="passwordInput" id="passwordInput">
+                <input type="password" placeholder="Senha" id="inputSenha">
+                <div onclick="ShowPassword(1)" class="eye" id="eye1"></div>
+            </div>
             <p id="mensagem_erro"></p>
             <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
             <p>Ainda não tem uma conta? <a href="cadastro.html">Faça Cadastro</a></p>

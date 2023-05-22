@@ -81,6 +81,25 @@ input::placeholder{
     color: #aeaeae;
 }
 
+.passwordInput{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.eye{
+    background-image: url(../assets/img/showingEye.svg);
+    /* filter: invert(100%) sepia(1%) saturate(3958%) hue-rotate(189deg) brightness(113%) contrast(87%); */
+    filter: invert(35%) sepia(93%) saturate(1431%) hue-rotate(234deg) brightness(96%) contrast(96%);
+    height: 16px;
+    width: 22px;
+    position: absolute;
+    cursor: pointer;
+    margin-left: 23%;
+    transition: 0.2s;
+}
+
 select{
     padding: 7px 7px;
     width: 53%;

@@ -22,8 +22,14 @@
             <h1 class="title">Cadastro</h1>
             <input placeholder="Username" id="inputUserName">
             <input placeholder="Email" id="inputEmail">
-            <input placeholder="Senha" id="inputSenha">
-            <input placeholder="Confirmar Senha" id="inputConfirmarSenha">
+            <div class="passwordInput" id="passwordInput">
+                <input type="password" placeholder="Senha" id="inputSenha">
+                <div onclick="ShowPassword(1)" class="eye" id="eye1"></div>
+            </div>
+            <div class="passwordInput" id="passwordInput">
+                <input type="password" placeholder="Confirmar Senha" id="inputConfirmarSenha">
+                <div onclick="ShowPassword(2)" class="eye" id="eye2"></div>
+            </div>
             <select name="País" id="inputPais">
                 <option value="" disabled selected>Selecione seu País</option>
                 <option value="br">Brasil</option>
