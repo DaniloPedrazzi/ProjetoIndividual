@@ -15,50 +15,45 @@
 <body onload="validarSessao(), carregarHeader('dashboard'), carregarDashboard()">
     <div id="header"></div>
     <div class="container">
-        <div class="blurDiv">
-            <div class="left">
-                <div class="categoria">
-                    <select name="Categoria" id="inputCategoria">
-                        <option value="Any%">Any%</option>
-                        <option value="All Red Berries">All Red Berries</option>
-                        <option value="True Ending">True Ending</option>
-                        <option value="All Hearts">All Hearts</option>
-                        <option value="100%">100%</option>
-                        <option value="Farewell">Farewell</option>
-                    </select>
+        <div class="left">
+            <div class="categoria">
+                <select name="Categoria" onchange="atualizarDashboardEsquerda(inputCategoria.value)" id="inputCategoria">
+                    <option value="Any%">Any%</option>
+                    <option value="All Red Berries">All Red Berries</option>
+                    <option value="True Ending">True Ending</option>
+                    <option value="All Hearts">All Hearts</option>
+                    <option value="100%">100%</option>
+                    <option value="Farewell">Farewell</option>
+                </select>
+            </div>
+            <div class="caixas">
+                <div class="caixa caixaLeft">
+                    <p>Melhor Tempo</p>
+                    <h2 id="melhorTempoCategoria">13m28s290ms</h2>
                 </div>
-                <div class="caixas">
-                    <div class="caixa caixaLeft">
-                        <p>Melhor Tempo</p>
-                        <h2 id="melhorTempoCategoria">13m28s290ms</h2>
-                    </div>
-                    <div class="caixa caixaLeft">
-                        <p>Runs</p>
-                        <h2 id="runsCategoria">638</h2>
-                    </div>
-                </div>
-                <div class="caixaGrafico caixaGraficoLinha">
-                    <canvas id="timeDeathsChart"></canvas>
+                <div class="caixa caixaLeft">
+                    <p>Runs</p>
+                    <h2 id="runsCategoria">638</h2>
                 </div>
             </div>
-            <div class="right">
-                <div class="caixaGrafico caixaGraficoPie">
-                    <canvas id="totalRunsChart"></canvas>
-                </div>
-                <div class="caixas">
-                    <div class="caixa caixaRight">
-                        <p>Runs Totais</p>
-                        <h2 id="runsTotais">32</h2>
-                    </div>
-                    <div class="caixa caixaRight">
-                        <p>Tempo Morto</p>
-                        <h2 id="tempoMorto">15m14s920ms</h2>
-                    </div>
-                </div>
+            <div class="caixaGrafico caixaGraficoLinha">
+                <canvas id="timeDeathsChart"></canvas>
             </div>
         </div>
-        <div class="loading" style="position: absolute; display: flex; justify-content: center; align-items: center; height: calc(100vh - 86px); width: 100%;">
-            <img src="./assets/img/loading.gif" style="height: 100%;" id="div_aguardar" alt="Gif de carregamento">
+        <div class="right">
+            <div class="caixaGrafico caixaGraficoPie">
+                <canvas id="totalRunsChart"></canvas>
+            </div>
+            <div class="caixas">
+                <div class="caixa caixaRight">
+                    <p>Runs Totais</p>
+                    <h2 id="runsTotais">32</h2>
+                </div>
+                <div class="caixa caixaRight">
+                    <p>Tempo Morto</p>
+                    <h2 id="tempoMorto">15m14s920ms</h2>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -67,6 +62,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+    var globalData = [];
+
     function carregarDashboard() {
         var idUsuario = sessionStorage.ID_USUARIO;
         aguardarDash();
@@ -75,7 +72,9 @@
                 console.log(resposta);
 
                 resposta.json().then(json => {
-                    plotarDash(json);
+                    globalData = json;
+                    console.log(globalData);
+                    plotarDash(globalData);
                     finalizarAguardarDash();
                 });
             } else {
@@ -88,24 +87,50 @@
             console.log(erro);
         })
     }
-    
-    function plotarDash(json){
-        console.log(json);
-        var melhorTempoCategoria = document.getElementById("melhorTempoCategoria");
-        var runsCategoria = document.getElementById("runsCategoria");
+
+    function plotarDash(globalData){
         var runsTotais = document.getElementById("runsTotais");
         var tempoMorto = document.getElementById("tempoMorto");
 
-        tempoMorto.innerHTML = calcularTempoMorte(json);
-        runsTotais.innerHTML = json.length;
+        tempoMorto.innerHTML = calcularTempoMorte(globalData);
+        runsTotais.innerHTML = globalData.length;
 
-        plotarGraficoRunsTotais(json);
+        plotarGraficoRunsTotais(globalData);
+
+        atualizarDashboardEsquerda("Any%");
     }
 
-    function calcularTempoMorte(json){
+    function atualizarDashboardEsquerda(categoria){
+        var localData = [];
+        for (let i = 0; i < globalData.length; i++) {
+            if(globalData[i].categoria == categoria){
+                localData.push(globalData[i]);
+            }
+        }
+        if(localData.length == 0){
+            plotarDashEsquerda("ERRO");
+        }
+        plotarDashEsquerda(localData);
+    }
+
+    function plotarDashEsquerda(localData){
+        var melhorTempoCategoria = document.getElementById("melhorTempoCategoria");
+        var runsCategoria = document.getElementById("runsCategoria");
+
+        if(localData == "ERRO"){
+            melhorTempoCategoria.innerHTML = "Não há runs";
+            runsCategoria.innerHTML = "Não há runs";
+            return;
+        }
+        melhorTempoCategoria.innerHTML = calcularMelhorTempo(localData);
+        runsCategoria.innerHTML = localData.length;
+        // TODO: plotar grafico de tempo e mortes
+    }
+
+    function calcularTempoMorte(globalData){
         var mortesTotais = 0;
-        for (let i = 0; i < json.length; i++) {
-            mortesTotais += json[i].mortes;
+        for (let i = 0; i < globalData.length; i++) {
+            mortesTotais += globalData[i].mortes;
         }
         // 1 morte = 1s morto
         var minutes = Math.floor(mortesTotais / 60); 
@@ -114,7 +139,23 @@
         return `${days}d${hours}h${minutes}m${mortesTotais}s`;
     }
 
-    function plotarGraficoRunsTotais(json){
+    function calcularMelhorTempo(localData){
+        // Transforma o tempo total em milissegundos e aloca em uma nova entidade "tempo"
+        for (let i = 0; i < localData.length; i++) {
+            localData[i].tempo = localData[i].tempoHora * 3600000 + localData[i].tempoMinuto * 60000 + localData[i].tempoSegundo * 1000 + localData[i].tempoMilesimo;
+        }
+        // Procura o melhor tempo
+        var melhorTempo = localData[0].tempo;
+        var melhorTempoIndice = 0;
+        for (let i = 0; i < localData.length; i++) {
+            if(localData[i].tempo < melhorTempo){
+                melhorTempoIndice = i;
+            }
+        }
+        return `${localData[melhorTempoIndice].tempoHora}h${localData[melhorTempoIndice].tempoMinuto}m${localData[melhorTempoIndice].tempoSegundo}s${localData[melhorTempoIndice].tempoMilesimo}ms`;
+    }
+
+    function plotarGraficoRunsTotais(globalData){
         var totalRuns = document.getElementById('totalRunsChart').getContext('2d');
         totalRuns.canvas.height = "100%";
         totalRuns.canvas.widht = "100%";
@@ -145,8 +186,8 @@
         var allHearts = 0;
         var oneHundredPercent = 0;
         var farewell = 0;
-        for (var i = 0; i < json.length; i++) {
-            switch (json[i].categoria) {
+        for (var i = 0; i < globalData.length; i++) {
+            switch (globalData[i].categoria) {
                 case "Any%":
                     anyPercent++;
                     break;
@@ -174,6 +215,7 @@
         );
     }
 </script>
+
 <script>
     var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
     timeDeaths.canvas.height = "100%";
@@ -261,16 +303,12 @@
 
 <script>
     function aguardarDash() {
-        var divAguardar = document.getElementById("div_aguardar");
-        divAguardar.style.display = "flex";
-        var blurDiv = document.querySelector(".blurDiv");
-        blurDiv.style.filter = "blur(5px)";
+        var container = document.querySelector(".container");
+        container.style.filter = "blur(5px)";
     }
     
     function finalizarAguardarDash() {
-        var divAguardar = document.getElementById("div_aguardar");
-        divAguardar.style.display = "none";
-        var blurDiv = document.querySelector(".blurDiv");
-        blurDiv.style.filter = "blur(0px)";
+        var container = document.querySelector(".container");
+        container.style.filter = "blur(0px)";
     }
 </script>
