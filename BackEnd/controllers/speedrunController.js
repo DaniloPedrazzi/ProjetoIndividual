@@ -42,6 +42,7 @@ function cadastrar(req, res) {
     var m = req.body.mServer;
     var s = req.body.sServer;
     var ms = req.body.msServer;
+    var mortes = req.body.mortesServer;
     var categoria = req.body.categoriaServer;
     var plataforma = req.body.plataformaServer;
     var linkConfirmacao = req.body.linkConfirmacaoServer;
@@ -49,7 +50,7 @@ function cadastrar(req, res) {
     // Faça as validações dos valores
     if (h == undefined || m == undefined || s == undefined || ms == undefined) {
         res.status(400).send("Você precisa colocar um tempo para sua speedrun!");
-    } else if (categoria == undefined) {
+    }else if (categoria == undefined) {
         res.status(400).send("Você precisa colocar uma categoria para sua speedrun!");
     } else if (plataforma == undefined) {
         res.status(400).send("Você precisa colocar a plataforma da sua speedrun!");
@@ -58,7 +59,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        speedrunModel.cadastrar(h, m, s, ms, categoria, plataforma, linkConfirmacao, idUsuario)
+        speedrunModel.cadastrar(h, m, s, ms, mortes, categoria, plataforma, linkConfirmacao, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);

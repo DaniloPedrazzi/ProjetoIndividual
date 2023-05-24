@@ -15,7 +15,7 @@ function carregarHeader(page){
             </a>
         </div>
         <div class="headerCenter">
-            <a class="headerLink" id="${leaderboardSelected}" href="leaderboard.html">LeaderBoard</a>
+            <a class="headerLink" id="${leaderboardSelected}" href="leaderboard.html">Leaderboard</a>
             <a class="headerLink" id="${dashboardSelected}" href="dashboard.html">Dashboard</a>
         </div>
     `;

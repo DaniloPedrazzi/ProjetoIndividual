@@ -8,12 +8,187 @@
     <title>Celeste: Home</title>
     <link rel="shortcut icon" href="./assets/img/celesteLogoOnlyMountain.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./css/leaderboard.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
     <script src="header.js"></script>
     <script src="js/funcoes.js"></script>
 </head>
 <body onload="validarSessao(), carregarHeader('dashboard')">
     <div id="header"></div>
-    <h1 class="title">Dashboard</h1>
+    <div class="container">
+        <div class="left">
+            <div class="categoria">
+                <select name="Categoria" id="inputCategoria">
+                    <option value="Any%">Any%</option>
+                    <option value="All Red Berries">All Red Berries</option>
+                    <option value="True Ending">True Ending</option>
+                    <option value="All Hearts">All Hearts</option>
+                    <option value="100%">100%</option>
+                    <option value="Farewell">Farewell</option>
+                </select>
+            </div>
+            <div class="caixas">
+                <div class="caixa caixaLeft">
+                    <p>Melhor Tempo</p>
+                    <h2>13m28s290ms</h2>
+                </div>
+                <div class="caixa caixaLeft">
+                    <p>Runs</p>
+                    <h2>638</h2>
+                </div>
+            </div>
+            <div class="caixaGrafico caixaGraficoLinha">
+                <canvas id="timeDeathsChart"></canvas>
+            </div>
+        </div>
+        <div class="right">
+            <div class="caixaGrafico caixaGraficoPie">
+                <canvas id="totalRunsChart"></canvas>
+            </div>
+            <div class="caixas">
+                <div class="caixa caixaRight">
+                    <p>Runs Totais</p>
+                    <h2>32</h2>
+                </div>
+                <div class="caixa caixaRight">
+                    <p>Tempo Morto</p>
+                    <h2>15m14s920ms</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
+    timeDeaths.canvas.height = "100%";
+    timeDeaths.canvas.widht = "100%";
+    const labelsTimeDeaths = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const dataTimeDeaths = {
+        labels: labelsTimeDeaths,
+        datasets: [
+            {
+                label: 'Tempo de Conclusão',
+                data: [9, 8.3, 7.1, 6.9, 5.2, 4.1, 5, 5, 5],
+                borderColor: "#4aed7e",
+                backgroundColor: "#4aed7e"
+            },
+            {
+                label: 'Mortes',
+                data: [1, 2, 3, 2, 1, 3, 3, 2, 4],
+                borderColor: "#ee5858",
+                backgroundColor: "#ee5858"
+            }
+        ]
+    };
+    const configTimeDeaths = {
+        type: 'line',
+        data: dataTimeDeaths,
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            family: 'Poppins',
+                        },
+                        color: '#fff',
+                    },
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: {
+                        font: {
+                            family: 'Poppins',
+                        },
+                        color: '#4aed7e',
+                    },
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    grid: {
+                    drawOnChartArea: false,
+                    },
+                    ticks: {
+                        font: {
+                            family: 'Poppins',
+                        },
+                        color: '#ee5858',
+                    },
+                },
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Poppins'
+                        },
+                        color: '#aeaeae'
+                    }
+                },
+                tooltip: {
+                    bodyFont: {
+                        family: 'Poppins',
+                    }
+                }
+            }
+        },
+    };
+
+    let timeDeathsChart = new Chart(
+        timeDeaths,
+        configTimeDeaths
+    );
+</script>
+
+<script>
+    var totalRuns = document.getElementById('totalRunsChart').getContext('2d');
+    totalRuns.canvas.height = "100%";
+    totalRuns.canvas.widht = "100%";
+    const labels = ['Any %', 'All Red Berries', 'True Ending', 'All Hearts', '100%', 'Farewell'];
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: ['Runs'],
+                data: [17, 4, 8, 5, 3, 10],
+                borderColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"],
+                backgroundColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"]
+            }
+        ]
+    };
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        font: {
+                            family: 'Poppins',
+                            size: 14,
+                        },
+                        color: '#aeaeae'
+                    }
+                },
+                tooltip: {
+                    bodyFont: {
+                        family: 'Poppins',
+                        size: 14,
+                    }
+                }
+            }
+        },
+    };
+
+    let myChart = new Chart(
+        totalRuns,
+        config
+    );
+</script>

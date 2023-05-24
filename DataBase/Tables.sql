@@ -15,6 +15,7 @@ CREATE TABLE speedrun (
   tempoMinuto INT NOT NULL,
   tempoSegundo INT NOT NULL,
   tempoMilesimo INT NOT NULL,
+  mortes INT NOT NULL,
   categoria VARCHAR(45) NOT NULL,
   plataforma VARCHAR(45) NOT NULL,
   linkConfirmacao VARCHAR(255),

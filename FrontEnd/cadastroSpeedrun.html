@@ -23,9 +23,10 @@
             <input placeholder="s" id="inputs">
             <input placeholder="ms" id="inputms">
         </div>
+        <input placeholder="Quantidade de Mortes" id="inputMortes">
         <input placeholder="Plataforma" id="inputPlataforma">
         <input placeholder="Link de Confirmação" id="inputLinkConfirmacao">
-        <select name="País" id="inputCategoria">
+        <select name="Categoria" id="inputCategoria">
             <option value="" disabled selected>Selecione a Categoria</option>
             <option value="Any%">Any%</option>
             <option value="All Red Berries">All Red Berries</option>
@@ -49,6 +50,7 @@
         var m = inputm.value;
         var s = inputs.value;
         var ms = inputms.value;
+        var mortesVar = inputMortes.value;
         var categoriaVar = inputCategoria.value;
         var plataformaVar = inputPlataforma.value;
         var linkConfirmacaoVar = inputLinkConfirmacao.value;
@@ -80,6 +82,7 @@
                 mServer: m,
                 sServer: s,
                 msServer: ms,
+                mortesServer: mortesVar,
                 categoriaServer: categoriaVar,
                 plataformaServer: plataformaVar,
                 linkConfirmacaoServer: linkConfirmacaoVar
