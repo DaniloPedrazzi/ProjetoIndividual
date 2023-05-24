@@ -8,6 +8,7 @@ var app = express();
 var indexRouter = require("./BackEnd/routes/index");
 var usuarioRouter = require("./BackEnd/routes/usuarios");
 var speedrunRouter = require("./BackEnd/routes/speedruns");
+var dashboardRouter = require("./BackEnd/routes/dashboard");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +19,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/speedruns", speedrunRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA}`);

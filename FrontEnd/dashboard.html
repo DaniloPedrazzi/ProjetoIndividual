@@ -12,54 +12,168 @@
     <script src="header.js"></script>
     <script src="js/funcoes.js"></script>
 </head>
-<body onload="validarSessao(), carregarHeader('dashboard')">
+<body onload="validarSessao(), carregarHeader('dashboard'), carregarDashboard()">
     <div id="header"></div>
     <div class="container">
-        <div class="left">
-            <div class="categoria">
-                <select name="Categoria" id="inputCategoria">
-                    <option value="Any%">Any%</option>
-                    <option value="All Red Berries">All Red Berries</option>
-                    <option value="True Ending">True Ending</option>
-                    <option value="All Hearts">All Hearts</option>
-                    <option value="100%">100%</option>
-                    <option value="Farewell">Farewell</option>
-                </select>
-            </div>
-            <div class="caixas">
-                <div class="caixa caixaLeft">
-                    <p>Melhor Tempo</p>
-                    <h2>13m28s290ms</h2>
+        <div class="blurDiv">
+            <div class="left">
+                <div class="categoria">
+                    <select name="Categoria" id="inputCategoria">
+                        <option value="Any%">Any%</option>
+                        <option value="All Red Berries">All Red Berries</option>
+                        <option value="True Ending">True Ending</option>
+                        <option value="All Hearts">All Hearts</option>
+                        <option value="100%">100%</option>
+                        <option value="Farewell">Farewell</option>
+                    </select>
                 </div>
-                <div class="caixa caixaLeft">
-                    <p>Runs</p>
-                    <h2>638</h2>
+                <div class="caixas">
+                    <div class="caixa caixaLeft">
+                        <p>Melhor Tempo</p>
+                        <h2 id="melhorTempoCategoria">13m28s290ms</h2>
+                    </div>
+                    <div class="caixa caixaLeft">
+                        <p>Runs</p>
+                        <h2 id="runsCategoria">638</h2>
+                    </div>
+                </div>
+                <div class="caixaGrafico caixaGraficoLinha">
+                    <canvas id="timeDeathsChart"></canvas>
                 </div>
             </div>
-            <div class="caixaGrafico caixaGraficoLinha">
-                <canvas id="timeDeathsChart"></canvas>
+            <div class="right">
+                <div class="caixaGrafico caixaGraficoPie">
+                    <canvas id="totalRunsChart"></canvas>
+                </div>
+                <div class="caixas">
+                    <div class="caixa caixaRight">
+                        <p>Runs Totais</p>
+                        <h2 id="runsTotais">32</h2>
+                    </div>
+                    <div class="caixa caixaRight">
+                        <p>Tempo Morto</p>
+                        <h2 id="tempoMorto">15m14s920ms</h2>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="right">
-            <div class="caixaGrafico caixaGraficoPie">
-                <canvas id="totalRunsChart"></canvas>
-            </div>
-            <div class="caixas">
-                <div class="caixa caixaRight">
-                    <p>Runs Totais</p>
-                    <h2>32</h2>
-                </div>
-                <div class="caixa caixaRight">
-                    <p>Tempo Morto</p>
-                    <h2>15m14s920ms</h2>
-                </div>
-            </div>
+        <div class="loading" style="position: absolute; display: flex; justify-content: center; align-items: center; height: calc(100vh - 86px); width: 100%;">
+            <img src="./assets/img/loading.gif" style="height: 100%;" id="div_aguardar" alt="Gif de carregamento">
         </div>
     </div>
 </body>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    function carregarDashboard() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        aguardarDash();
+        fetch(`/dashboard/${idUsuario}`).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    plotarDash(json);
+                    finalizarAguardarDash();
+                });
+            } else {
+                document.getElementById("div_aguardar").innerHTML = `Houve um erro ao carregar a dashboard.`;
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+    
+    function plotarDash(json){
+        console.log(json);
+        var melhorTempoCategoria = document.getElementById("melhorTempoCategoria");
+        var runsCategoria = document.getElementById("runsCategoria");
+        var runsTotais = document.getElementById("runsTotais");
+        var tempoMorto = document.getElementById("tempoMorto");
+
+        tempoMorto.innerHTML = calcularTempoMorte(json);
+        runsTotais.innerHTML = json.length;
+
+        plotarGraficoRunsTotais(json);
+    }
+
+    function calcularTempoMorte(json){
+        var mortesTotais = 0;
+        for (let i = 0; i < json.length; i++) {
+            mortesTotais += json[i].mortes;
+        }
+        // 1 morte = 1s morto
+        var minutes = Math.floor(mortesTotais / 60); 
+        var hours = Math.floor(minutes / 60);
+        var days = Math.floor(hours / 24);
+        return `${days}d${hours}h${minutes}m${mortesTotais}s`;
+    }
+
+    function plotarGraficoRunsTotais(json){
+        var totalRuns = document.getElementById('totalRunsChart').getContext('2d');
+        totalRuns.canvas.height = "100%";
+        totalRuns.canvas.widht = "100%";
+        let labels = ['Any %', 'All Red Berries', 'True Ending', 'All Hearts', '100%', 'Farewell'];
+        let data = {
+            labels: labels,
+            datasets: [{
+                label: ['Runs'],
+                data: [],
+                borderColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"],
+                backgroundColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"]
+            }]
+        };
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {position: 'right',labels: {font: {family: 'Poppins',size: 14,},color: '#aeaeae'}},
+                    tooltip: {bodyFont: {family: 'Poppins', size: 14,}}
+                }
+            },
+        };
+        var anyPercent = 0;
+        var allRedBerries = 0;
+        var trueEnding = 0;
+        var allHearts = 0;
+        var oneHundredPercent = 0;
+        var farewell = 0;
+        for (var i = 0; i < json.length; i++) {
+            switch (json[i].categoria) {
+                case "Any%":
+                    anyPercent++;
+                    break;
+                case "All Red Berries":
+                    allRedBerries++;
+                    break;
+                case "True Ending":
+                    trueEnding++;
+                    break;
+                case "All Hearts":
+                    allHearts++;
+                    break;
+                case "100%":
+                    oneHundredPercent++;
+                    break;
+                case "Farewell":
+                    farewell++;
+                    break;
+            }
+        }
+        data.datasets[0].data.push(anyPercent, allRedBerries, trueEnding, allHearts, oneHundredPercent, farewell);
+        let myChart = new Chart(
+            totalRuns,
+            config
+        );
+    }
+</script>
 <script>
     var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
     timeDeaths.canvas.height = "100%";
@@ -146,49 +260,17 @@
 </script>
 
 <script>
-    var totalRuns = document.getElementById('totalRunsChart').getContext('2d');
-    totalRuns.canvas.height = "100%";
-    totalRuns.canvas.widht = "100%";
-    const labels = ['Any %', 'All Red Berries', 'True Ending', 'All Hearts', '100%', 'Farewell'];
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: ['Runs'],
-                data: [17, 4, 8, 5, 3, 10],
-                borderColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"],
-                backgroundColor: ["#4aed7e", "#247BA0", "#EE6C4D", "#FF1654", "#F3FFBD", "#247BA0"]
-            }
-        ]
-    };
-    const config = {
-        type: 'doughnut',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        font: {
-                            family: 'Poppins',
-                            size: 14,
-                        },
-                        color: '#aeaeae'
-                    }
-                },
-                tooltip: {
-                    bodyFont: {
-                        family: 'Poppins',
-                        size: 14,
-                    }
-                }
-            }
-        },
-    };
-
-    let myChart = new Chart(
-        totalRuns,
-        config
-    );
+    function aguardarDash() {
+        var divAguardar = document.getElementById("div_aguardar");
+        divAguardar.style.display = "flex";
+        var blurDiv = document.querySelector(".blurDiv");
+        blurDiv.style.filter = "blur(5px)";
+    }
+    
+    function finalizarAguardarDash() {
+        var divAguardar = document.getElementById("div_aguardar");
+        divAguardar.style.display = "none";
+        var blurDiv = document.querySelector(".blurDiv");
+        blurDiv.style.filter = "blur(0px)";
+    }
 </script>

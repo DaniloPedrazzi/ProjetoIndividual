@@ -1,5 +1,9 @@
 .container{
     display: flex;
+}
+
+.blurDiv{
+    display: flex;
     width: 95%;
     height: calc(100vh - 86px); /* 86px é a soma da altura do header (65px) mais 21px de margin embaixo */
     margin: auto;
