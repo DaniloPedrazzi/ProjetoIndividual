@@ -30,7 +30,7 @@ function carregarHeader(page){
                 </svg>
             </div>
             <div id="dropDownContent" class="dropdown-content">
-                <a href="perfil.html">Meu Perfil</a>
+                <a href="perfil.html">Editar Perfil</a>
                 <a href="cadastroSpeedrun.html">Adicionar Speedrun</a>
                 <a href="index.html" onclick="sessionStorage.clear()">Sair</a>
             </div>

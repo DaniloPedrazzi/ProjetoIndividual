@@ -42,6 +42,7 @@
                 <option value="pt">Portugal</option>
             </select>
             <p id="mensagem_erro"></p>
+            <p id="mensagem_sucesso"></p>
             <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
             <p>Já tem uma conta? <a href="login.html">Faça Login</a></p>
             <button onclick="cadastrar()">Cadastrar</button>
@@ -51,6 +52,8 @@
 </html>
 <script>
     function cadastrar() {
+        mensagem_erro.innerHTML = "";
+        mensagem_sucesso.innerHTML = "";
         aguardar();
 
         var userNameVar = inputUserName.value;
@@ -81,9 +84,12 @@
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
+                mensagem_sucesso.style.display = "block"
+                mensagem_sucesso.innerHTML = "Cadastro realizado com sucesso!";
                 setTimeout(() => {
                     window.location = "login.html";
-                }, "2000")
+                }, 1000)
+                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }

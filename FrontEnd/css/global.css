@@ -40,6 +40,10 @@ body::-webkit-scrollbar-thumb {
     display: none;
     color: var(--error);
 }
+#mensagem_sucesso{
+    display: none;
+    color: var(--sucess);
+}
 
 #div_aguardar{
     margin: -30px;

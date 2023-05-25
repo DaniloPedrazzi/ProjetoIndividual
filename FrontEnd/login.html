@@ -27,6 +27,7 @@
                 <div onclick="ShowPassword(1)" class="eye" id="eye1"></div>
             </div>
             <p id="mensagem_erro"></p>
+            <p id="mensagem_sucesso"></p>
             <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
             <p>Ainda não tem uma conta? <a href="cadastro.html">Faça Cadastro</a></p>
             <button onclick="entrar()">Entrar</button>
@@ -37,13 +38,15 @@
 
 <script>
     function entrar() {
+        mensagem_erro.innerHTML = "";
+        mensagem_sucesso.innerHTML = "";
         aguardar();
 
         var usernameVar = inputUserName.value;
         var senhaVar = inputSenha.value;
 
         if (usernameVar == "" || senhaVar == "") {
-            mensagem_erro.style.display = "block"
+            mensagem_erro.style.display = "block";
             mensagem_erro.innerHTML = "Você precisa preencher todos os campos!";
             return false;
         }
@@ -64,17 +67,22 @@
             if (resposta.ok) {
                 console.log(resposta);
 
+                mensagem_sucesso.style.display = "block"
+                mensagem_sucesso.innerHTML = "Login realizado com sucesso!";
+                
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-
-                    sessionStorage.USERNAME_USUARIO = json.username;
+                    
                     sessionStorage.ID_USUARIO = json.idUsuario;
-
+                    sessionStorage.USERNAME_USUARIO = json.username;
+                    sessionStorage.SENHA_USUARIO = json.senha;
+                    
                     setTimeout(function () {
                         window.location = "./leaderboard.html";
-                    }, 2000);
-
+                    }, 1000);
+                    
+                    finalizarAguardar();
                 });
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");

@@ -14,6 +14,9 @@
 </head>
 <body onload="validarSessao(), carregarHeader('dashboard'), carregarDashboard()">
     <div id="header"></div>
+    <div style="display: flex; justify-content: center;">
+        <p id="mensagem_erro"></p>
+    </div>
     <div class="container">
         <div class="left">
             <div class="categoria">
@@ -70,7 +73,12 @@
         fetch(`/dashboard/${idUsuario}`).then(function (resposta) {
             if (resposta.ok) {
                 console.log(resposta);
-
+                if(resposta.status == 204){
+                    mensagem_erro.style.display = "block";
+                    mensagem_erro.innerHTML = `Você ainda não possui runs cadastradas.`;
+                    finalizarAguardarDash();
+                    return;
+                }
                 resposta.json().then(json => {
                     globalData = json;
                     console.log(globalData);
@@ -78,7 +86,8 @@
                     finalizarAguardarDash();
                 });
             } else {
-                document.getElementById("div_aguardar").innerHTML = `Houve um erro ao carregar a dashboard.`;
+                mensagem_erro.style.display = "block";
+                mensagem_erro.innerHTML = `Houve um erro ao carregar a dashboard.`;
                 resposta.text().then(texto => {
                     console.error(texto);
                 });

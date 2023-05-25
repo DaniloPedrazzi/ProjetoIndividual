@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Individual project for SPTECH Celeste Themed">
+    <title>Celeste: Home</title>
+    <link rel="shortcut icon" href="./assets/img/celesteLogoOnlyMountain.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/cadastroSpeedrun.css">
+
+    <!-- API -->
+    <script src="./js/funcoes.js"></script>
+</head>
+<body onload="validarSessao(), carregarHeader(), pegarInformacoes()">
+    <div id="header"></div>
+    <div class="login">
+        <h1 class="title">Editar Perfil</h1>
+        <div class="divInput">
+            <p class="titleInput">Username:</p>
+            <input placeholder="Username" id="inputUsername">
+        </div>
+        <div class="divInput">
+            <p class="titleInput">Email:</p>
+            <input placeholder="Email" id="inputEmail">
+        </div>
+        <div class="divInput">
+            <p class="titleInput">Senha:</p>
+            <input placeholder="Senha" id="inputSenha">
+        </div>
+        <div class="divInput">
+            <p class="titleInput">País:</p>
+            <select name="País" id="inputPais">
+                <option value="" disabled selected>Selecione seu País</option>
+                <option value="br">Brasil</option>
+                <option value="us">Estados Unidos</option>
+                <option value="ca">Canadá</option>
+                <option value="ar">Argentina</option>
+                <option value="de">Alemanha</option>
+                <option value="fr">França</option>
+                <option value="pt">Portugal</option>
+            </select>
+        </div>
+        <p id="mensagem_erro"></p>
+        <p id="mensagem_sucesso"></p>
+        <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
+        <button onclick="editar()">Atualizar</button>
+    </div>
+</body>
+</html>
+
+<script>
+    
+</script>
+
+<script>
+    function pegarInformacoes() {
+        aguardar();
+
+        fetch(`/usuarios/${sessionStorage.ID_USUARIO}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                senhaServer: sessionStorage.SENHA_USUARIO
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    inputUsername.value = json[0].username;
+                    inputEmail.value = json[0].email;
+                    inputSenha.value = json[0].senha;
+                    inputPais.value = json[0].pais;
+                    finalizarAguardar();
+                });
+            } else {
+                console.log("Houve um erro ao tentar buscar suas informações!");
+                resposta.text().then(texto => {
+                    mensagem_erro.style.display = "block"
+                    mensagem_erro.innerHTML = texto;
+                    finalizarAguardar();
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    }
+
+    function editar() {
+        mensagem_erro.innerHTML = "";
+        mensagem_sucesso.innerHTML = "";
+        aguardar();
+
+        var usernameVar = inputUsername.value;
+        var emailVar = inputEmail.value;
+        var paisVar = inputPais.value;
+        var senhaVar = inputSenha.value;
+
+        // Validações
+        if (usernameVar == "") {
+            mensagem_erro.style.display = "block"
+            mensagem_erro.innerHTML = "O campo de username tem que estar preenchido!";
+            finalizarAguardar();
+            return false;
+        }else if (emailVar == "") {
+            mensagem_erro.style.display = "block"
+            mensagem_erro.innerHTML = "O campo de email tem que estar preenchido!";
+            finalizarAguardar();
+            return false;
+        }else if (paisVar == "") {
+            mensagem_erro.style.display = "block"
+            mensagem_erro.innerHTML = "O campo de país tem que estar preenchido!";
+            finalizarAguardar();
+            return false;
+        }else if (senhaVar == "") {
+            mensagem_erro.style.display = "block"
+            mensagem_erro.innerHTML = "O campo de senha tem que estar preenchido!";
+            finalizarAguardar();
+            return false;
+        }
+
+        // Enviando os valores para a API
+        fetch(`/usuarios/editar/${sessionStorage.ID_USUARIO}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                usernameServer: usernameVar,
+                emailServer: emailVar,
+                paisServer: paisVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                mensagem_sucesso.style.display = "block";
+                mensagem_sucesso.innerHTML = "Informações editadas com sucesso!";
+            } else {
+                mensagem_erro.style.display = "block";
+                mensagem_erro.innerHTML = "Houve um erro ao tentar realizar o cadastro!";
+            }
+            finalizarAguardar();
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        return false;
+    }
+</script>
+
+<!-- Header loader -->
+<script src="header.js"></script>

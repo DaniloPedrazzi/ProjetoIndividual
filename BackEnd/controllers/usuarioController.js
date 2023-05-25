@@ -1,7 +1,9 @@
 var usuarioModel = require("../models/usuarioModel");
 
-function listar(req, res) {
-    usuarioModel.listar()
+function pegarInformacoes(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    usuarioModel.pegarInformacoes(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -30,11 +32,7 @@ function entrar(req, res) {
         usuarioModel.entrar(username, senha)
             .then(
                 function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
                     if (resultado.length == 1) {
-                        console.log(resultado);
                         res.json(resultado[0]);
                     } else if (resultado.length == 0) {
                         res.status(403).send("Username e/ou senha inválido(s)");
@@ -54,13 +52,11 @@ function entrar(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var username = req.body.userNameServer;
     var email = req.body.emailServer;
     var pais = req.body.paisServer;
     var senha = req.body.senhaServer;
 
-    // Faça as validações dos valores
     if (username == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -70,8 +66,6 @@ function cadastrar(req, res) {
     } else if (pais == undefined) {
         res.status(400).send("Seu pais está undefined!");
     } else {
-        
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(username, email, pais, senha)
             .then(
                 function (resultado) {
@@ -90,8 +84,43 @@ function cadastrar(req, res) {
     }
 }
 
+function editar(req, res){
+    var idUsuario = req.params.idUsuario;
+    var username = req.body.usernameServer;
+    var email = req.body.emailServer;
+    var pais = req.body.paisServer;
+    var senha = req.body.senhaServer;
+
+    if (username == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (pais == undefined) {
+        res.status(400).send("Seu pais está undefined!");
+    } else {
+        usuarioModel.editar(idUsuario, username, email, pais, senha)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a Edição! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
+    pegarInformacoes,
     entrar,
     cadastrar,
-    listar
+    editar
 }
