@@ -89,14 +89,14 @@
     }
 
     function plotarDash(globalData){
+        // Direita
         var runsTotais = document.getElementById("runsTotais");
         var tempoMorto = document.getElementById("tempoMorto");
-
         tempoMorto.innerHTML = calcularTempoMorte(globalData);
         runsTotais.innerHTML = globalData.length;
-
         plotarGraficoRunsTotais(globalData);
 
+        //Esquerda
         atualizarDashboardEsquerda("Any%");
     }
 
@@ -109,6 +109,7 @@
         }
         if(localData.length == 0){
             plotarDashEsquerda("ERRO");
+            return;
         }
         plotarDashEsquerda(localData);
     }
@@ -120,39 +121,80 @@
         if(localData == "ERRO"){
             melhorTempoCategoria.innerHTML = "Não há runs";
             runsCategoria.innerHTML = "Não há runs";
+            document.querySelector(".caixaGraficoLinha").innerHTML = "Não há runs";
             return;
         }
+
         melhorTempoCategoria.innerHTML = calcularMelhorTempo(localData);
         runsCategoria.innerHTML = localData.length;
-        // TODO: plotar grafico de tempo e mortes
+        plotarGraficoRunsCategoria(localData);
     }
 
-    function calcularTempoMorte(globalData){
-        var mortesTotais = 0;
-        for (let i = 0; i < globalData.length; i++) {
-            mortesTotais += globalData[i].mortes;
+    function plotarGraficoRunsCategoria(localData){
+        document.querySelector(".caixaGraficoLinha").innerHTML = `<canvas id="timeDeathsChart"></canvas>`;
+        if (Chart.getChart("timeDeathsChart")) {
+            Chart.getChart("timeDeathsChart").destroy();
         }
-        // 1 morte = 1s morto
-        var minutes = Math.floor(mortesTotais / 60); 
-        var hours = Math.floor(minutes / 60);
-        var days = Math.floor(hours / 24);
-        return `${days}d${hours}h${minutes}m${mortesTotais}s`;
-    }
-
-    function calcularMelhorTempo(localData){
-        // Transforma o tempo total em milissegundos e aloca em uma nova entidade "tempo"
+        var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
+        timeDeaths.canvas.height = "100%";
+        timeDeaths.canvas.widht = "100%";
+        const labelsTimeDeaths = [];
+        const dataTimeDeaths = {
+            labels: labelsTimeDeaths,
+            datasets: [
+                {
+                    label: 'Tempo de Conclusão',
+                    data: [],
+                    borderColor: "#4aed7e",
+                    backgroundColor: "#4aed7e"
+                },
+                {
+                    label: 'Mortes',
+                    data: [],
+                    borderColor: "#ee5858",
+                    backgroundColor: "#ee5858"
+                }
+            ]
+        };
         for (let i = 0; i < localData.length; i++) {
-            localData[i].tempo = localData[i].tempoHora * 3600000 + localData[i].tempoMinuto * 60000 + localData[i].tempoSegundo * 1000 + localData[i].tempoMilesimo;
+            var registro = localData[i];
+            labelsTimeDeaths.push(calcularData(registro.dataSpeedrun));
+            dataTimeDeaths.datasets[0].data.push(registro.tempo);
+            dataTimeDeaths.datasets[1].data.push(registro.mortes);
         }
-        // Procura o melhor tempo
-        var melhorTempo = localData[0].tempo;
-        var melhorTempoIndice = 0;
-        for (let i = 0; i < localData.length; i++) {
-            if(localData[i].tempo < melhorTempo){
-                melhorTempoIndice = i;
+        const configTimeDeaths = {
+            type: 'line',
+            data: dataTimeDeaths,
+            options: {
+                scales: {
+                    x: {ticks: {font: {family: 'Poppins'},color: '#fff'},},
+                    y: {type:'linear',display: true,position: 'left',
+                        ticks:{font:{family: 'Poppins'},color: '#4aed7e',
+                            // Formatação do eixo Y para não mostrar o tempo em milissegundos
+                            callback: function(value) {
+                                return formatTempoAxisLabel(value, 0);
+                            }
+                        }
+                    },
+                    y1: {type: 'linear',display: true,position: 'right',grid: {drawOnChartArea: false},ticks: {font: {family: 'Poppins'},color: '#ee5858'}}
+                },
+                plugins: {legend: {labels: {font: {family: 'Poppins'},color: '#aeaeae'}},
+                    tooltip: {bodyFont: {family: 'Poppins'}, 
+                        callbacks: {
+                            // Formatação do tooltip (quando vc passa o mouse) para não mostrar o tempo em milissegundos
+                            label: function(context) {
+                                return formatTempoAxisLabel(context.parsed.y, context.datasetIndex);
+                            }
+                        }
+                    }
+                }
             }
-        }
-        return `${localData[melhorTempoIndice].tempoHora}h${localData[melhorTempoIndice].tempoMinuto}m${localData[melhorTempoIndice].tempoSegundo}s${localData[melhorTempoIndice].tempoMilesimo}ms`;
+        };
+
+        let timeDeathsChart = new Chart(
+            timeDeaths,
+            configTimeDeaths
+        );
     }
 
     function plotarGraficoRunsTotais(globalData){
@@ -217,88 +259,90 @@
 </script>
 
 <script>
-    var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
-    timeDeaths.canvas.height = "100%";
-    timeDeaths.canvas.widht = "100%";
-    const labelsTimeDeaths = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const dataTimeDeaths = {
-        labels: labelsTimeDeaths,
-        datasets: [
-            {
-                label: 'Tempo de Conclusão',
-                data: [9, 8.3, 7.1, 6.9, 5.2, 4.1, 5, 5, 5],
-                borderColor: "#4aed7e",
-                backgroundColor: "#4aed7e"
-            },
-            {
-                label: 'Mortes',
-                data: [1, 2, 3, 2, 1, 3, 3, 2, 4],
-                borderColor: "#ee5858",
-                backgroundColor: "#ee5858"
-            }
-        ]
-    };
-    const configTimeDeaths = {
-        type: 'line',
-        data: dataTimeDeaths,
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        font: {
-                            family: 'Poppins',
-                        },
-                        color: '#fff',
-                    },
-                },
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    ticks: {
-                        font: {
-                            family: 'Poppins',
-                        },
-                        color: '#4aed7e',
-                    },
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    grid: {
-                    drawOnChartArea: false,
-                    },
-                    ticks: {
-                        font: {
-                            family: 'Poppins',
-                        },
-                        color: '#ee5858',
-                    },
-                },
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Poppins'
-                        },
-                        color: '#aeaeae'
-                    }
-                },
-                tooltip: {
-                    bodyFont: {
-                        family: 'Poppins',
-                    }
-                }
-            }
-        },
-    };
+    //funções complementares
 
-    let timeDeathsChart = new Chart(
-        timeDeaths,
-        configTimeDeaths
-    );
+    //calcula o tempo morto para colocar no quadrado de tempo morto
+    function calcularTempoMorte(globalData){
+        var mortesTotais = 0;
+        for (let i = 0; i < globalData.length; i++) {
+            mortesTotais += globalData[i].mortes;
+        }
+        // 1 morte = 1s morto
+        var minutes = Math.floor(mortesTotais / 60); 
+        var hours = Math.floor(minutes / 60);
+        var days = Math.floor(hours / 24);
+        return `${days}d${hours}h${minutes}m${mortesTotais}s`;
+    }
+
+    // calcula melhor tempo para colocar no quadrado de melhor tempo
+    function calcularMelhorTempo(localData){
+        // Transforma o tempo total em milissegundos e aloca em uma nova entidade "tempo"
+        for (let i = 0; i < localData.length; i++) {
+            localData[i].tempo = localData[i].tempoHora * 3600000 + localData[i].tempoMinuto * 60000 + localData[i].tempoSegundo * 1000 + localData[i].tempoMilesimo;
+        }
+        // Procura o melhor tempo
+        var melhorTempo = localData[0].tempo;
+        var melhorTempoIndice = 0;
+        for (let i = 0; i < localData.length; i++) {
+            if(localData[i].tempo < melhorTempo){
+                melhorTempoIndice = i;
+            }
+        }
+        return `${localData[melhorTempoIndice].tempoHora}h${localData[melhorTempoIndice].tempoMinuto}m${localData[melhorTempoIndice].tempoSegundo}s${localData[melhorTempoIndice].tempoMilesimo}ms`;
+    }
+
+    // Função para calcular a data e mostrar no gráfico da esquerda (eixo X)
+    function calcularData(data){
+        var currentDate = new Date();
+        var dataJS = new Date(data);
+
+        var timeDifference = currentDate - dataJS;
+        var seconds = Math.floor(timeDifference / 1000);
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor(minutes / 60);
+        var days = Math.floor(hours / 24);
+
+        if(days > 0){
+            return `Há ${days} dias`;
+        }else if(hours > 0){
+            return `Há ${hours} horas`;
+        }else if(minutes > 0){
+            return `Há ${minutes} minutos`;
+        }else if(seconds > 0){
+            return `Há ${seconds} segundos`;
+        }else{
+            return `Agora`;
+        }
+    }
+
+    // Formatação de tempo para o gráfico da esquerda (eixo Y e tooltip)
+    function formatTempoAxisLabel(value, datasetIndex) {
+        if (datasetIndex === 0) {
+            var milliseconds = value % 1000;
+            var seconds = Math.floor(value / 1000) % 60;
+            var minutes = Math.floor(value / 1000 / 60) % 60;
+            var hours = Math.floor(value / 1000 / 60 / 60);
+
+            var formattedTime = "";
+
+            if (hours > 0) {
+                formattedTime += hours + "h";
+            }
+            if (minutes > 0) {
+                formattedTime += minutes + "m";
+            }
+            if (seconds > 0) {
+                formattedTime += seconds + "s";
+            }
+            if (milliseconds > 0) {
+                formattedTime += milliseconds + "ms";
+            }
+
+            return formattedTime;
+        }else{
+            return `${value} Mortes`;
+        }
+    }
 </script>
 
 <script>

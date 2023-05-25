@@ -98,6 +98,12 @@ select:focus{
 .caixaGraficoLinha{
     height: 100%;
     border-left: 7px solid var(--main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light);
+    font-weight: 600;
+    font-size: 3em;
 }
 
 .caixaGraficoPie{
