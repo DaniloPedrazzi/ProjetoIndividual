@@ -10,6 +10,7 @@
     <img src="https://i.imgur.com/qijZsiA.png">
 </p>
 <p>Bem-vindo ao fan site de Speedrun de Celeste! Este repositório é dedicado à apaixonada comunidade de speedrunners do incrível jogo Celeste, desenvolvido pela equipe da Matt Makes Games. O objetivo deste projeto é fornecer uma plataforma para speedrunners de Celeste competirem, aprenderem e compartilharem suas conquistas com outros jogadores entusiastas.</p>
+<p>Feito por Danilo Justino, para entrega como projeto Individual no 1° semestre do curso de ADS na SPTECH</p>
 <h2>Recursos</h2>
 <ul>
     <li>
