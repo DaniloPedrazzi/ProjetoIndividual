@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/cadastroSpeedrun.css">
 
+    <script src="header.js"></script>
+    
     <!-- API -->
     <script src="./js/funcoes.js"></script>
 </head>
@@ -47,6 +49,8 @@
         <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
         <button onclick="editar()">Atualizar</button>
     </div>
+    <div class="wave footerWave"></div>
+    <div id="footer"></div>
 </body>
 </html>
 
@@ -57,7 +61,7 @@
 <script>
     function pegarInformacoes() {
         aguardar();
-
+        
         fetch(`/usuarios/${sessionStorage.ID_USUARIO}`, {
             method: "POST",
             headers: {
@@ -91,17 +95,17 @@
         })
         return false;
     }
-
+    
     function editar() {
         mensagem_erro.innerHTML = "";
         mensagem_sucesso.innerHTML = "";
         aguardar();
-
+        
         var usernameVar = inputUsername.value;
         var emailVar = inputEmail.value;
         var paisVar = inputPais.value;
         var senhaVar = inputSenha.value;
-
+        
         // Validações
         if (usernameVar == "") {
             mensagem_erro.style.display = "block"
@@ -124,7 +128,7 @@
             finalizarAguardar();
             return false;
         }
-
+        
         // Enviando os valores para a API
         fetch(`/usuarios/editar/${sessionStorage.ID_USUARIO}`, {
             method: "POST",
@@ -154,5 +158,4 @@
     }
 </script>
 
-<!-- Header loader -->
-<script src="header.js"></script>
+<script src="footer.js"></script>

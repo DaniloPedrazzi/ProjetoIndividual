@@ -1,11 +1,7 @@
-#header{
-    position: fixed;
-}
-
 /* Direita */
 
 .login{
-    height: 100vh;
+    height: calc(100vh - 86px);
     display: flex;
     flex-direction: column;
     justify-content: center;

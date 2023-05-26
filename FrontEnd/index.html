@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/index.css">
     <script src="header.js"></script>
-
+    
 </head>
 <body onload="carregarHeader()">
     <div id="header"></div>
@@ -21,10 +21,30 @@
         <img class="parallaxImg" alt="Parallax First Layer" src="./assets/img/closerangemountains.webp" id="CloseMountains">
         <img class="parallaxLogo" alt="Celeste Logo" src="./assets/img/celestelogo.webp" id="logo" width="436px" height="374px">
     </section>
-    <div>
-        <h1 class="title">Próxima sessão inicia aqui!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem dolorum aspernatur explicabo, esse quo, dolore ullam quod porro enim, aliquid qui totam eum aliquam necessitatibus vitae. Quia deserunt vel temporibus.</p>
+    <div class="section section1">
+        <div>
+            <h1 class="title">O que é Celeste?</h1>
+            <p>Celeste é um jogo de plataforma indie que mergulha os jogadores em uma jornada emocionante de autodescoberta e superação. Controlando a corajosa Madeline, os jogadores enfrentarão desafios mortais enquanto lutam contra seus próprios medos internos. A narrativa habilmente entrelaçada com a jogabilidade cativa e comove, destacando a importância de enfrentar e superar nossos medos mais profundos. <br>
+                Além disso, as mecânicas de plataforma precisas proporcionam uma experiência desafiadora e gratificante, sendo um dos jogos de plataforma com as fases mais difíceis, oferece um teste de habilidade para os jogadores mais dedicados. Celeste é um jogo que transcende a diversão, proporcionando uma experiência única de superação pessoal.</p>
+            </div>
+            <div class="madeline">
+                <img height="500px" src="assets/img/madelineImg.png" alt="">
+            </div>
+        </div>
+        <div class="wave indexWave"></div>
+        <div class="section dark">
+            <div class="madeline">
+            <img height="200px" src="assets/img/bounceline.gif" alt="">
+            <p>Madeline ↑</p>
+        </div>
+        <div>
+            <h1 class="title">Cenário de Speedrun</h1>
+            <p>Para aqueles que quiseram ir um passo além, há o cenário de speedrun, que consiste em buscar os melhores tempos de conclusão em determinadas partes do jogo e praticar mecânicas precisas, explorando também o lado emocional da jornada de Madeline. A busca pela perfeição nos desafios de speedrun reflete a determinação e coragem de enfrentar seus próprios medos internos, em uma jornada de autodescoberta e superação. A comunidade colaborativa de speedrun de Celeste cria um ambiente acolhedor, onde os jogadores compartilham estratégias e apoiam uns aos outros, em busca de se superarem e alcançarem novos recordes.</p>
+            <button class="indexBtn">Faça Parte!</button>
+        </div>
     </div>
+    <div class="wave footerWave"></div>
+    <div id="footer"></div>
 </body>
 </html>
 
@@ -40,3 +60,5 @@
         logo.style.top = value * 0.6 + 'px';
     })
 </script>
+
+<script src="footer.js"></script>

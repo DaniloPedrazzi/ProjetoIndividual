@@ -141,6 +141,7 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     gap: 5px;
+    -webkit-background-clip: text; /*faz o texto ter a cor do background*/
 }
   
 .dropbtn:hover svg, .dropbtn:focus svg {
@@ -174,3 +175,24 @@ body::-webkit-scrollbar-thumb {
 .dropdown a:hover {background-color: var(--main);}
   
 .show {display: block;}
+
+/* Footer */
+.wave{
+    aspect-ratio: 900/100;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: -3.5%;
+}
+
+.footerWave{
+    background-image: url(../assets/img/waveFooter3.svg);
+}
+
+#footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--light);
+}
