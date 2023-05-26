@@ -81,7 +81,7 @@
                     plotarEntries();
                 });
             } else {
-                containerLeaderboard.innerHTML = `<div class="entry"><p class="userName">Não há speedruns cadastradas na categoria ${category}</p></div>`;
+                containerLeaderboard.innerHTML = `<tr class="entry"><td class="left-border"></td><td><p class="entryText erro">Não há speedruns cadastradas na categoria ${category}</p></td></tr>`;
                 console.log("Houve um erro ao tentar trocar a categoria!");
                 finalizarAguardar();
             }
@@ -109,7 +109,7 @@
                 });
             } else {
                 finalizarAguardar();
-                containerLeaderboard.innerHTML = `<div class="entry"><p class="userName">Houve um erro ao carregar as speedruns!</p></div>`;
+                containerLeaderboard.innerHTML = `<tr class="entry"><td class="left-border"></td><td><p class="entryText erro">Houve um erro ao carregar as speedruns!</p></td></tr>`;
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
