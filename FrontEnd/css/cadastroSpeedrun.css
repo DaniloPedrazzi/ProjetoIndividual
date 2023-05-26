@@ -1,7 +1,5 @@
-/* Direita */
-
 .login{
-    height: calc(100vh - 86px);
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

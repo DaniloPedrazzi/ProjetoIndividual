@@ -177,6 +177,13 @@ body::-webkit-scrollbar-thumb {
 .show {display: block;}
 
 /* Footer */
+.pageContainer{
+    min-height:100vh; 
+    display:flex; 
+    flex-direction:column;
+    justify-content:space-between;
+}
+
 .wave{
     aspect-ratio: 900/100;
     width: 100%;
@@ -190,9 +197,9 @@ body::-webkit-scrollbar-thumb {
     background-image: url(../assets/img/waveFooter3.svg);
 }
 
-#footer{
+footer p{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--light);
+    color: #dadada;
 }

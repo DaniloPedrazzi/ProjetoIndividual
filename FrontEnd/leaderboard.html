@@ -14,26 +14,30 @@
 </head>
 <body onload="carregarLeaderboard(), carregarHeader('leaderboard')">
     <div id="header"></div>
-    <div class="container">
-        <div class="menu">
-            <div class="categories">
-                <button onclick="changeCategory()" class="category selected">Todas</button>
-                <button onclick="changeCategory()" class="category">Any%</button>
-                <button onclick="changeCategory()" class="category">All Red Berries</button>
-                <button onclick="changeCategory()" class="category">True Ending</button>
-                <button onclick="changeCategory()" class="category">All Hearts</button>
-                <button onclick="changeCategory()" class="category">100%</button>
-                <button onclick="changeCategory()" class="category">Farewell</button>
+    <div class="pageContainer">
+        <div class="container">
+            <div class="menu">
+                <div class="categories">
+                    <button onclick="changeCategory()" class="category selected">Todas</button>
+                    <button onclick="changeCategory()" class="category">Any%</button>
+                    <button onclick="changeCategory()" class="category">All Red Berries</button>
+                    <button onclick="changeCategory()" class="category">True Ending</button>
+                    <button onclick="changeCategory()" class="category">All Hearts</button>
+                    <button onclick="changeCategory()" class="category">100%</button>
+                    <button onclick="changeCategory()" class="category">Farewell</button>
+                </div>
+                <div class="addSpeedrun">
+                    <a href="cadastroSpeedrun.html">+</a>
+                </div>
             </div>
-            <div class="addSpeedrun">
-                <a href="cadastroSpeedrun.html">+</a>
-            </div>
+            <table id="containerLeaderboard"></table>
+            <img src="./assets/img/loading.gif" style="height: 400px; width: 500px; margin-left: 27%;" id="div_aguardar" alt="Gif de carregamento">
         </div>
-        <div id="containerLeaderboard"></div>
-        <img src="./assets/img/loading.gif" style="height: 400px; width: 500px; margin-left: 27%;" id="div_aguardar" alt="Gif de carregamento">
+        <footer>
+            <div class="wave footerWave"></div>
+            <p>Feito com 💟 por Danilo, 1ADS SPTECH</p>
+        </footer>
     </div>
-    <div class="wave footerWave"></div>
-    <div id="footer"></div>
 </body>
 </html>
 
@@ -119,20 +123,34 @@
         organizarSpeedruns();
         for (let i = 0; i < speedruns.length; i++) {
             containerLeaderboard.innerHTML += `
-            <div class="entry" onclick="window.open('${speedruns[i].linkConfirmacao}', '_blank')">
-                <div class="left">
-                    <p class="position place${i + 1}">${i + 1}</p>
-                    <img src="./assets/img/${speedruns[i].pais}.png" alt="" class="flag">
-                    <p class="userName">${speedruns[i].username}</p>
-                </div>
-                <div class="right">
-                    <p class="time">${speedruns[i].tempoHora}h ${speedruns[i].tempoMinuto}m ${speedruns[i].tempoSegundo}s ${speedruns[i].tempoMilesimo}ms</p>
-                    <p class="date">x${speedruns[i].mortes}💀</p>
-                    <p class="date">${calcularData(speedruns[i].dataSpeedrun)}</p>
-                    <p class="categoryEntry">${speedruns[i].categoria}</p>
-                    <p class="platform">${speedruns[i].plataforma}</p>
-                </div>
-            </div>`
+                <tr class="entry" onclick="window.open('${speedruns[i].linkConfirmacao}', '_blank')">
+                    <td class="left-border"></td>
+                    <td>
+                        <p class="entryText position place${i + 1}">${i + 1}</p>
+                    </td>
+                    <td>
+                        <img src="./assets/img/${speedruns[i].pais}.png" alt="" class="flag">
+                    </td>
+                    <td>
+                        <p class="entryText userName">${speedruns[i].username}</p>
+                    </td>
+                    <td>
+                        <p class="entryText time">${speedruns[i].tempoHora}h ${speedruns[i].tempoMinuto}m ${speedruns[i].tempoSegundo}s ${speedruns[i].tempoMilesimo}ms</p>
+                    </td>
+                    <td>
+                        <p class="entryText">x${speedruns[i].mortes}💀</p>
+                    </td>
+                    <td>
+                        <p class="entryText">${calcularData(speedruns[i].dataSpeedrun)}</p>
+                    </td>
+                    <td>
+                        <p class="entryText">${speedruns[i].categoria}</p>
+                    </td>
+                    <td>
+                        <p class="entryText">${speedruns[i].plataforma}</p>
+                    </td>
+                </tr>
+            `
         }
     }
 
@@ -176,6 +194,3 @@
         }
     }
 </script>
-
-
-<script src="footer.js"></script>

@@ -15,32 +15,42 @@
 </head>
 <body onload="validarSessao(), carregarHeader()">
     <div id="header"></div>
-    <div class="login">
-        <h1 class="title">Cadastrar Speedrun</h1>
-        <div class="inputTempo">
-            <input placeholder="h" id="inputh">
-            <input placeholder="m" id="inputm">
-            <input placeholder="s" id="inputs">
-            <input placeholder="ms" id="inputms">
+    <div class="pageContainer">
+        <div class="login">
+            <h1 class="title">Cadastrar Speedrun</h1>
+            <div class="inputTempo">
+                <input placeholder="h" id="inputh">
+                <input placeholder="m" id="inputm">
+                <input placeholder="s" id="inputs">
+                <input placeholder="ms" id="inputms">
+            </div>
+            <input placeholder="Quantidade de Mortes" id="inputMortes">
+            <select name="Plataforma" id="inputPlataforma">
+                <option value="" disabled selected>Selecione a Plataforma</option>
+                <option value="PC">PC</option>
+                <option value="Xbox">Xbox</option>
+                <option value="PS4">PS4</option>
+                <option value="Switch">Switch</option>
+            </select>
+            <input placeholder="Link de Confirmação" id="inputLinkConfirmacao">
+            <select name="Categoria" id="inputCategoria">
+                <option value="" disabled selected>Selecione a Categoria</option>
+                <option value="Any%">Any%</option>
+                <option value="All Red Berries">All Red Berries</option>
+                <option value="True Ending">True Ending</option>
+                <option value="All Hearts">All Hearts</option>
+                <option value="100%">100%</option>
+                <option value="Farewell">Farewell</option>
+            </select>
+            <p id="mensagem_erro"></p>
+            <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
+            <button onclick="cadastrar()">Cadastrar</button>
         </div>
-        <input placeholder="Quantidade de Mortes" id="inputMortes">
-        <input placeholder="Plataforma" id="inputPlataforma">
-        <input placeholder="Link de Confirmação" id="inputLinkConfirmacao">
-        <select name="Categoria" id="inputCategoria">
-            <option value="" disabled selected>Selecione a Categoria</option>
-            <option value="Any%">Any%</option>
-            <option value="All Red Berries">All Red Berries</option>
-            <option value="True Ending">True Ending</option>
-            <option value="All Hearts">All Hearts</option>
-            <option value="100%">100%</option>
-            <option value="Farewell">Farewell</option>
-        </select>
-        <p id="mensagem_erro"></p>
-        <img src="./assets/img/loading.gif" id="div_aguardar" alt="Gif de carregamento">
-        <button onclick="cadastrar()">Cadastrar</button>
+        <footer>
+            <div class="wave footerWave"></div>
+            <p>Feito com 💟 por Danilo, 1ADS SPTECH</p>
+        </footer>
     </div>
-    <div class="wave footerWave"></div>
-    <div id="footer"></div>
 </body>
 </html>
 <script>
@@ -108,4 +118,3 @@
 
 <!-- Header loader -->
 <script src="header.js"></script>
-<script src="footer.js"></script>

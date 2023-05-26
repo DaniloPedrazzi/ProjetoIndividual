@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: auto;
+    margin: 0px auto;
 }
 
 /* Menu */
@@ -60,88 +60,73 @@
 }
 
 /* Entry */
-
 #containerLeaderboard{
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
     margin: auto;
     width: 100%;
     margin-top: 21px;
-}
-.left{
-    width: 25%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.right{
-    width: 65%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    border-collapse: separate;
+    border-spacing: 0 7px;
 }
 
-.entry{
-    display: flex;
-    justify-content: space-between;
+.left-border {
+    width: 7px;
+    background-color: var(--main);
+    border-radius: 7px 0 0 7px;
+}
+
+.entry {
     background-color: var(--main-dark);
-    border-left: 7px solid var(--main);
-    border-radius: 7px;
-    padding: 14px 49px;
     cursor: pointer;
     transition: 0.2s ease;
+    padding-bottom: 7px;
 }
-.entry:hover{
+  
+.entry:hover {
     background-color: hsl(255, 57%, 35%);
 }
 
-.entry .position{
-    color: #fff;
-    font-weight: 800;
-    font-size: 1.2em;
-}
-.entry .time{
-    color: #fff;
-    font-weight: 600;
-}
-.entry .userName, .platform, .date, .categoryEntry{
+.entryText{
     color: #fff;
     font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 10px;
+    text-align: center;
 }
 
-.entry .flag{
+.position {
+    font-weight: 800;
+    font-size: 1.2em;
+    padding: 21px;
+}
+
+.flag {
     height: 25px;
     border-radius: 3px;
-    margin-left: 42px;
+    vertical-align: middle;
 }
 
-.entry .userName{
-    margin-left: 42px;
+.userName {
+    flex-shrink: 1;
+    text-align: left;
 }
 
-.entry .categoryEntry{
-    margin-right: 42px;
+.time {
+    font-weight: 600;
+    padding: 14px;
 }
-
-.entry .date{
-    margin-right: 70px;
-}
-
-.entry .time{
-    margin-right: 77px;
-}
-
-.entry .place1{
+  
+.entry .place1 {
     background: -webkit-linear-gradient(#e7e419, #fff8a8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-.entry .place2{
+  
+.entry .place2 {
     color: silver;
 }
-
-.entry .place3{
+  
+.entry .place3 {
     color: #cd7f32;
 }
+  
