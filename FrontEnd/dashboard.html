@@ -146,13 +146,14 @@
         }
         var timeDeaths = document.getElementById('timeDeathsChart').getContext('2d');
         timeDeaths.canvas.height = "100%";
-        timeDeaths.canvas.widht = "100%";
+        timeDeaths.canvas.width = "100%";
         const labelsTimeDeaths = [];
         const dataTimeDeaths = {
             labels: labelsTimeDeaths,
             datasets: [
                 {
                     label: 'Tempo de Conclusão',
+                    yAxisID: 'y',
                     data: [],
                     borderColor: "#4aed7e",
                     backgroundColor: "#4aed7e"
@@ -160,6 +161,8 @@
                 {
                     label: 'Mortes',
                     data: [],
+                    type: 'bar',
+                    yAxisID: 'y1',
                     borderColor: "#ee5858",
                     backgroundColor: "#ee5858"
                 }

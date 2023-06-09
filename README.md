@@ -19,7 +19,7 @@
     </li>
     <li>
         <p><strong>Dashboard:</strong> Cada usuário tem um painel personalizado para acompanhar seu progresso no speedrun e rastrear suas estatísticas. O painel detalhado fornece informações sobre seu melhor tempo, número de tentativas, número de mortes e muito mais, podendo filtrar por categoria. Acompanhe facilmente seu desempenho ao longo do tempo e identifique áreas para melhorar.</p>
-        <img src="https://i.imgur.com/hZ1H89R.png">
+        <img src="https://i.imgur.com/zl5423G.png">
     </li>
 </ul>
 <h2>Como utilizar</h2>
