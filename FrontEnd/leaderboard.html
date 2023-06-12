@@ -170,27 +170,4 @@
             }
         }
     }
-
-    function calcularData(data){
-        var currentDate = new Date();
-        var dataJS = new Date(data);
-
-        var timeDifference = currentDate - dataJS;
-        var seconds = Math.floor(timeDifference / 1000);
-        var minutes = Math.floor(seconds / 60);
-        var hours = Math.floor(minutes / 60);
-        var days = Math.floor(hours / 24);
-
-        if(days > 0){
-            return `Há ${days} dias`;
-        }else if(hours > 0){
-            return `Há ${hours} horas`;
-        }else if(minutes > 0){
-            return `Há ${minutes} minutos`;
-        }else if(seconds > 0){
-            return `Há ${seconds} segundos`;
-        }else{
-            return `Agora`;
-        }
-    }
 </script>

@@ -303,30 +303,6 @@
         return `${localData[melhorTempoIndice].tempoHora}h${localData[melhorTempoIndice].tempoMinuto}m${localData[melhorTempoIndice].tempoSegundo}s${localData[melhorTempoIndice].tempoMilesimo}ms`;
     }
 
-    // Função para calcular a data e mostrar no gráfico da esquerda (eixo X)
-    function calcularData(data){
-        var currentDate = new Date();
-        var dataJS = new Date(data);
-
-        var timeDifference = currentDate - dataJS;
-        var seconds = Math.floor(timeDifference / 1000);
-        var minutes = Math.floor(seconds / 60);
-        var hours = Math.floor(minutes / 60);
-        var days = Math.floor(hours / 24);
-
-        if(days > 0){
-            return `Há ${days} dias`;
-        }else if(hours > 0){
-            return `Há ${hours} horas`;
-        }else if(minutes > 0){
-            return `Há ${minutes} minutos`;
-        }else if(seconds > 0){
-            return `Há ${seconds} segundos`;
-        }else{
-            return `Agora`;
-        }
-    }
-
     // Formatação de tempo para o gráfico da esquerda (eixo Y e tooltip)
     function formatTempoAxisLabel(value, datasetIndex) {
         if (datasetIndex === 0) {

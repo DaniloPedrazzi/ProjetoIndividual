@@ -19,6 +19,37 @@ function finalizarAguardar() {
     divAguardar.style.display = "none";
 }
 
+function calcularData(data){
+    var currentDate = new Date();
+    var dataJS = new Date(data);
+
+    var timeDifference = currentDate - dataJS;
+    var seconds = Math.floor(timeDifference / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+
+    if(days > 364 && days < 365 * 2){
+        return `Há ${Math.floor(days / 365)} ano`;
+    }else if(days > 30 * 12){
+        return `Há ${Math.floor(days / 365)} anos`;
+    }else if(days > 30 && days < 30 * 2){
+        return `Há ${Math.floor(days / 30)} mes`;
+    }else if(days > 30){
+        return `Há ${Math.floor(days / 30)} meses`;
+    }else if(days > 0){
+        return `Há ${days} dias`;
+    }else if(hours > 0){
+        return `Há ${hours} horas`;
+    }else if(minutes > 0){
+        return `Há ${minutes} minutos`;
+    }else if(seconds > 0){
+        return `Há ${seconds} segundos`;
+    }else{
+        return `Agora`;
+    }
+}
+
 function ShowPassword(input){
     var inputSenha = document.getElementById("inputSenha");
     var inputConfirmarSenha = document.getElementById("inputConfirmarSenha");

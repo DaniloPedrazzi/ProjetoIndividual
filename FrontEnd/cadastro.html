@@ -66,6 +66,22 @@
         if (userNameVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || paisVar == "") {
             mensagem_erro.style.display = "block";
             mensagem_erro.innerHTML = "Você precisa preencher todos os campos!";
+            finalizarAguardar();
+            return false;
+        }else if(emailVar != "" && emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1){
+            mensagem_erro.style.display = "block";
+            mensagem_erro.innerHTML = "O email precisa ser válido!";
+            finalizarAguardar();
+            return false;
+        }else if(senhaVar.length < 8){
+            mensagem_erro.style.display = "block";
+            mensagem_erro.innerHTML = "A senha precisa ter no mínimo 8 caracteres!";
+            finalizarAguardar();
+            return false;
+        }else if(senhaVar != confirmacaoSenhaVar){
+            mensagem_erro.style.display = "block";
+            mensagem_erro.innerHTML = "As senhas não coincidem!";
+            finalizarAguardar();
             return false;
         }
         

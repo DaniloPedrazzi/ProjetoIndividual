@@ -71,14 +71,17 @@
         if(idUsuarioVar == null){
             mensagem_erro.style.display = "block";
             mensagem_erro.innerHTML = "Você precisa estar logado para cadastrar uma speedrun!";
+            finalizarAguardar();
             return false;
         }else if (h == "" || m == "" || s == "" || ms == "" || categoriaVar == "" || plataformaVar == "" || linkConfirmacaoVar == "") {
             mensagem_erro.style.display = "block";
             mensagem_erro.innerHTML = "Você precisa preencher todos os campos!";
+            finalizarAguardar();
             return false;
         }else if(m > 60 || s > 60 || ms > 1000){
             mensagem_erro.style.display = "block";
             mensagem_erro.innerHTML = "Você precisa preencher os campos de tempo corretamente!";
+            finalizarAguardar();
             return false;
         }
 
