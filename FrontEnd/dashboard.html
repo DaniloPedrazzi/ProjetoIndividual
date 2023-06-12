@@ -280,10 +280,12 @@
             mortesTotais += globalData[i].mortes;
         }
         // 1 morte = 1s morto
-        var minutes = Math.floor(mortesTotais / 60); 
-        var hours = Math.floor(minutes / 60);
-        var days = Math.floor(hours / 24);
-        return `${days}d${hours}h${minutes}m${mortesTotais}s`;
+        var days = Math.floor(mortesTotais / (24 * 60 * 60));
+        var hours = Math.floor((mortesTotais % (24 * 60 * 60)) / (60 * 60));
+        var minutes = Math.floor((mortesTotais % (60 * 60)) / 60);
+        var seconds = mortesTotais % 60;
+
+        return `${days}d${hours}h${minutes}m${seconds}s`;
     }
 
     // calcula melhor tempo para colocar no quadrado de melhor tempo
